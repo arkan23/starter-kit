@@ -269,6 +269,13 @@ app.listen(3000, function () {
 	console.log('Hello World listening on port 3000!');
 });
 
+/// comment
+
+/// comment___2
+
+
+///whith new stage-1
+
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
