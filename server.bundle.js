@@ -74,6 +74,18 @@ module.exports = require("react");
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111,28 +123,16 @@ function addItem(item) {
 }
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router");
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("express");
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = require("express");
+module.exports = require("redux");
 
 /***/ }),
 /* 6 */
@@ -145,7 +145,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _express = __webpack_require__(5);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -157,7 +157,7 @@ var _server = __webpack_require__(16);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _routes = __webpack_require__(15);
 
@@ -167,11 +167,11 @@ var _index = __webpack_require__(13);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _redux = __webpack_require__(4);
+var _redux = __webpack_require__(5);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _list_actions = __webpack_require__(1);
+var _list_actions = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -235,7 +235,7 @@ In this function, you can render you html part of the webpage. You can add some 
 using JS variables.
  */
 function renderFullPage(html, initialState) {
-	return '\n    <!DOCTYPE html>\n    <html lang="en">\n    <head>\n    \t<!-- Required meta tags always come first -->\n    \t<meta charset="utf-8">\n    \t<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n    \t<meta http-equiv="x-ua-compatible" content="ie=edge">\n    \t<title>React Router Redux Express</title>\n\n    \t<!-- Bootstrap CSS -->\n    \t<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">\n    \t<link rel="stylesheet" href="../stylesheets/main.css">\n    </head>\n    <body>\n\n    \t<div id="reactbody"><div>' + html + '</div></div>\n        <script>\n            window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '\n          </script>\n    \t<script src="../bin/app.bundle.js"></script>\n    \t<!-- jQuery first, then Bootstrap JS. -->\n    \t<script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>\n    \t<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>\n    \t<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>\n    </body>\n    </html>\n    ';
+	return '\n    <!DOCTYPE html>\n    <html lang="en">\n    <head>\n    \t<!-- Required meta tags always come first -->\n    \t<meta charset="utf-8">\n    \t<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n    \t<meta http-equiv="x-ua-compatible" content="ie=edge">\n    \t<title>React Router Redux Express</title>\n\n    \t<!-- Bootstrap CSS -->\n      <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">\n      <link rel="stylesheet" href="../stylesheets/font-awesome.min.css">\n    \t<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">\n    \t<link rel="stylesheet" href="../stylesheets/main.css">\n\n\n\n\n    </head>\n    <body>\n\n    \t<div id="reactbody"><div>' + html + '</div></div>\n        <script>\n            window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + '\n          </script>\n\n    \t<script src="../bin/app.bundle.js"></script>\n    \t<!-- jQuery first, then Bootstrap JS. -->\n\n    \t<script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>\n    \t<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>\n    \t<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>\n    </body>\n    </html>\n    ';
 }
 
 exports.default = router;
@@ -247,7 +247,7 @@ exports.default = router;
 "use strict";
 
 
-var _express = __webpack_require__(5);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -264,8 +264,10 @@ app.use('/stylesheets', _express2.default.static('./public/stylesheets'));
 
 app.use('/', _index2.default);
 app.use('/view/*', _index2.default);
+app.use('/plans', _index2.default);
+app.use('/store', _index2.default);
 
-app.listen(3000, function () {
+app.listen(3001, function () {
 	console.log('Hello World listening on port 3000!');
 });
 
@@ -278,6 +280,706 @@ app.listen(3000, function () {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Sidebar = __webpack_require__(10);
+
+var _Sidebar2 = _interopRequireDefault(_Sidebar);
+
+var _Mainbar = __webpack_require__(9);
+
+var _Mainbar2 = _interopRequireDefault(_Mainbar);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Main = function (_Component) {
+  _inherits(Main, _Component);
+
+  function Main() {
+    _classCallCheck(this, Main);
+
+    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+  }
+
+  _createClass(Main, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'container-fluid', id: 'display_sructure' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row dtr' },
+          _react2.default.createElement(_Sidebar2.default, null),
+          _react2.default.createElement(_Mainbar2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return Main;
+}(_react.Component);
+
+exports.default = Main;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Mainbar = function (_Component) {
+  _inherits(Mainbar, _Component);
+
+  function Mainbar() {
+    _classCallCheck(this, Mainbar);
+
+    return _possibleConstructorReturn(this, (Mainbar.__proto__ || Object.getPrototypeOf(Mainbar)).apply(this, arguments));
+  }
+
+  _createClass(Mainbar, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'col-md-10 col-sm-11 dtc valign-top' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'header',
+            { id: 'nav-header', className: 'clearfix' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-5' },
+              _react2.default.createElement(
+                'nav',
+                { className: 'navbar-default' },
+                _react2.default.createElement(
+                  'button',
+                  { className: ' pull-left navbar-toggle navbar-toggle-left', type: 'button', 'data-toggle': 'offcanvas', 'data-target': '#side-menu', 'aria-controls': 'navbarSupportedContent', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
+                  _react2.default.createElement('span', { className: 'icon-bar' }),
+                  _react2.default.createElement('span', { className: 'icon-bar' }),
+                  _react2.default.createElement('span', { className: 'icon-bar' })
+                )
+              ),
+              _react2.default.createElement('input', { type: 'text', id: 'header-search', className: 'hidden-sm hidden-xs', placeholder: 'Searchfor something...' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-7' },
+              _react2.default.createElement(
+                'ul',
+                { className: 'pull-right' },
+                _react2.default.createElement(
+                  'li',
+                  { id: 'welcome', className: 'hidden-sm hidden-xs' },
+                  'Welcome to your administration area'
+                ),
+                _react2.default.createElement(
+                  'li',
+                  { className: 'fixed-width' },
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    _react2.default.createElement('i', { className: 'fa fa-bell', 'aria-hidden': 'true' }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'label label-warning ' },
+                      '3'
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  { className: 'fixed-width' },
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    _react2.default.createElement('i', { className: 'fa fa-map', 'aria-hidden': 'true' }),
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'label label-message' },
+                      '3'
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'li',
+                  null,
+                  _react2.default.createElement(
+                    'a',
+                    { href: '#' },
+                    _react2.default.createElement('i', { className: 'fa fa-sign-out', 'aria-hidden': 'true' }),
+                    'log out'
+                  )
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'content' },
+          _react2.default.createElement(
+            'div',
+            { className: 'counter container-fluid' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2 counter-right-border' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-user' }),
+                  ' Total Users'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count' },
+                  '2500'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'green' },
+                    '4% '
+                  ),
+                  ' From last Week'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2 counter-right-border' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-clock-o' }),
+                  ' Average Time'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count' },
+                  '123.50'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'green' },
+                    _react2.default.createElement('i', { className: 'fa fa-sort-asc' }),
+                    '3% '
+                  ),
+                  ' From last Week'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2 counter-right-border' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-user' }),
+                  ' Total Males'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count green' },
+                  '2,500'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'green' },
+                    _react2.default.createElement('i', { className: 'fa fa-sort-asc' }),
+                    '34% '
+                  ),
+                  ' From last Week'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2 counter-right-border' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-user' }),
+                  ' Total Females'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count' },
+                  '4,567'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'red' },
+                    _react2.default.createElement('i', { className: 'fa fa-sort-desc' }),
+                    '12% '
+                  ),
+                  ' From last Week'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2 counter-right-border' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-user' }),
+                  ' Total Collections'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count' },
+                  '2,315'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'green' },
+                    _react2.default.createElement('i', { className: 'fa fa-sort-asc' }),
+                    '34% '
+                  ),
+                  ' From last Week'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-2' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_top' },
+                  _react2.default.createElement('i', { className: 'fa fa-user' }),
+                  ' Total Connections'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'count' },
+                  '7,325'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'count_bottom' },
+                  _react2.default.createElement(
+                    'i',
+                    { className: 'green' },
+                    _react2.default.createElement('i', { className: 'fa fa-sort-asc' }),
+                    '34% '
+                  ),
+                  ' From last Week'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'counter container-fluid graf-size' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row graf-size' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-12' },
+                _react2.default.createElement('div', { id: 'chartdiv' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'container-fluid sub-graf-size' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-4 col-md-4-left' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'sub-graf' },
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Test text'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-4' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'sub-graf' },
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Test text'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-4 col-md-4-right' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'sub-graf' },
+                  _react2.default.createElement(
+                    'p',
+                    null,
+                    'Test text'
+                  )
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'footer',
+            { id: 'admin-footer' },
+            _react2.default.createElement(
+              'div',
+              { className: 'pull-left' },
+              _react2.default.createElement(
+                'b',
+                null,
+                'Copyright '
+              ),
+              '\xA9 2017'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'pull-right' },
+              'admin system'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Mainbar;
+}(_react.Component);
+
+function mapStateToProps(state) {
+  return {
+    activeItem: state.lists.item
+  };
+}
+
+/*
+ Here we are creating a Higher order component
+ https://facebook.github.io/react/docs/higher-order-components.html
+ */
+exports.default = Mainbar;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(1);
+
+var _reactRouter = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sidebar = function (_Component) {
+  _inherits(Sidebar, _Component);
+
+  function Sidebar() {
+    _classCallCheck(this, Sidebar);
+
+    return _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).apply(this, arguments));
+  }
+
+  _createClass(Sidebar, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'col-md-2 col-sm-1 hidden-xs dtc valign-top', id: 'side-menu' },
+        _react2.default.createElement(
+          'h1',
+          { className: 'hidden-sm hidden-xs' },
+          'Navigation'
+        ),
+        _react2.default.createElement(
+          'ul',
+          null,
+          _react2.default.createElement(
+            'li',
+            { className: 'link active' },
+            _react2.default.createElement(
+              'a',
+              { href: '/' },
+              _react2.default.createElement('i', { className: 'fa fa-th', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Dashboard'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'link' },
+            _react2.default.createElement(
+              'a',
+              { href: '#collapse-post', 'data-toggle': 'collapse', 'aria-control': 'collapse-post' },
+              _react2.default.createElement('i', { className: 'fa fa-bar-chart', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Manufactory'
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'label label-success pull-right hidden-sm hidden-xs' },
+                '10'
+              )
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'collapse collapseable', id: 'collapse-post' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'articles.html' },
+                  'Hedelberg'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'articles.html' },
+                  'Comp'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'articles.html' },
+                  'Hedel'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'link' },
+            _react2.default.createElement(
+              'a',
+              { href: '#collapse-comm', 'data-toggle': 'collapse', 'aria-control': 'collapse-comm' },
+              _react2.default.createElement('i', { className: 'fa fa-address-card', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Commenters'
+              )
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'collapse collapseable', id: 'collapse-comm' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'chats.html' },
+                  'Chats',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'label label-success pull-right hidden-sm hidden-xs' },
+                    '5'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'users.html' },
+                  'Users',
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'label label-warning pull-right hidden-sm hidden-xs' },
+                    '5'
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'link' },
+            _react2.default.createElement(
+              'a',
+              { href: '/plans' },
+              _react2.default.createElement('i', { className: 'fa fa-calendar', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Plans'
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'label label-success pull-right hidden-sm hidden-xs' },
+                '10'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'link' },
+            _react2.default.createElement(
+              'a',
+              { href: '/store' },
+              _react2.default.createElement('i', { className: 'fa fa-cubes', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Store'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            { className: 'link settings-btn' },
+            _react2.default.createElement(
+              'a',
+              { href: '#collapse-mode', 'data-toggle': 'collapse', 'aria-control': 'collapse-mode' },
+              _react2.default.createElement('i', { className: 'fa fa-wrench', 'aria-hidden': 'true' }),
+              _react2.default.createElement(
+                'span',
+                { className: 'hidden-sm hidden-xs' },
+                'Admin mode'
+              )
+            ),
+            _react2.default.createElement(
+              'ul',
+              { className: 'collapse collapseable', id: 'collapse-mode' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'articles.html' },
+                  'Settings'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  { href: 'articles.html' },
+                  'Commands'
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Sidebar;
+}(_react.Component);
+
+function mapStateToProps(state) {
+  return {
+    activeItem: state.lists.item
+  };
+}
+
+/*
+ Here we are creating a Higher order component
+ https://facebook.github.io/react/docs/higher-order-components.html
+ */
+exports.default = Sidebar;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -313,15 +1015,16 @@ var Header = function (_Component) {
     _createClass(Header, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { style: { marginTop: 20 } },
+            return (
+                /*  <div style={{ marginTop: 20 }}>
+                      <h1>React Redux Router</h1>
+                      { this.props.children }
+                  </div>*/
                 _react2.default.createElement(
-                    'h1',
+                    'div',
                     null,
-                    'React Redux Router'
-                ),
-                this.props.children
+                    this.props.children
+                )
             );
         }
     }]);
@@ -330,278 +1033,6 @@ var Header = function (_Component) {
 }(_react.Component);
 
 exports.default = Header;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _list_view = __webpack_require__(11);
-
-var _list_view2 = _interopRequireDefault(_list_view);
-
-var _list_item = __webpack_require__(10);
-
-var _list_item2 = _interopRequireDefault(_list_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Main = function (_Component) {
-    _inherits(Main, _Component);
-
-    function Main() {
-        _classCallCheck(this, Main);
-
-        return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
-    }
-
-    _createClass(Main, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'col-md-10 col-md-offset-1 main' },
-                _react2.default.createElement(_list_view2.default, null),
-                _react2.default.createElement(_list_item2.default, null)
-            );
-        }
-    }]);
-
-    return Main;
-}(_react.Component);
-
-exports.default = Main;
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(2);
-
-var _reactRouter = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ListItem = function (_Component) {
-    _inherits(ListItem, _Component);
-
-    function ListItem() {
-        _classCallCheck(this, ListItem);
-
-        return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
-    }
-
-    _createClass(ListItem, [{
-        key: 'render',
-        value: function render() {
-            if (!this.props.activeItem) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h3',
-                        null,
-                        'Select an item'
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'Description will appear here'
-                    )
-                );
-            }
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    ' ',
-                    this.props.activeItem.name,
-                    ' '
-                ),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    this.props.activeItem.description
-                ),
-                _react2.default.createElement(
-                    _reactRouter.Link,
-                    { to: "view/" + this.props.activeItem.name },
-                    _react2.default.createElement(
-                        'button',
-                        { type: 'button', className: 'btn btn-primary' },
-                        'Read More'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return ListItem;
-}(_react.Component);
-
-/*
- This is a redux specific function.
- What is does is: It gets the state specified in here from the global redux state.
- For example, here we are retrieving the list of items from the redux store.
- Whenever this list changes, any component that is using this list of item will re-render.
- */
-
-
-function mapStateToProps(state) {
-    return {
-        activeItem: state.lists.item
-    };
-}
-
-/*
- Here we are creating a Higher order component
- https://facebook.github.io/react/docs/higher-order-components.html
- */
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(ListItem);
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(2);
-
-var _redux = __webpack_require__(4);
-
-var _list_actions = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ListView = function (_Component) {
-    _inherits(ListView, _Component);
-
-    function ListView() {
-        _classCallCheck(this, ListView);
-
-        return _possibleConstructorReturn(this, (ListView.__proto__ || Object.getPrototypeOf(ListView)).apply(this, arguments));
-    }
-
-    _createClass(ListView, [{
-        key: 'renderList',
-        value: function renderList() {
-            var _this2 = this;
-
-            return this.props.lists.map(function (listItem) {
-                return _react2.default.createElement(
-                    'li',
-                    {
-                        key: listItem.name,
-                        onClick: function onClick() {
-                            return _this2.props.selectItem(listItem);
-                        },
-                        className: 'list-group-item'
-                    },
-                    listItem.name
-                );
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                    'ul',
-                    { className: 'list-group col-sm-4' },
-                    this.renderList()
-                )
-            );
-        }
-    }]);
-
-    return ListView;
-}(_react.Component);
-
-/*
-This is a redux specific function.
-What is does is: It gets the state specified in here from the global redux state.
-For example, here we are retrieving the list of items from the redux store.
-Whenever this list changes, any component that is using this list of item will re-render.
- */
-
-
-function mapStateToProps(state) {
-    return {
-        lists: state.lists.all
-    };
-}
-
-/*
-This is a redux specific function.
-http://redux.js.org/docs/api/bindActionCreators.html
- */
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({ selectItem: _list_actions.selectItem }, dispatch);
-}
-
-/*
-Here we are creating a Higher order component
-https://facebook.github.io/react/docs/higher-order-components.html
- */
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListView);
 
 /***/ }),
 /* 12 */
@@ -620,11 +1051,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _list_actions = __webpack_require__(1);
+var _list_actions = __webpack_require__(3);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -721,7 +1152,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(4);
+var _redux = __webpack_require__(5);
 
 var _lists = __webpack_require__(14);
 
@@ -770,7 +1201,7 @@ exports.default = function () {
     return state;
 };
 
-var _list_actions = __webpack_require__(1);
+var _list_actions = __webpack_require__(3);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -793,19 +1224,19 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(3);
+var _reactRouter = __webpack_require__(2);
 
 var _show_list_item = __webpack_require__(12);
 
 var _show_list_item2 = _interopRequireDefault(_show_list_item);
 
-var _header = __webpack_require__(8);
+var _header = __webpack_require__(11);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _main = __webpack_require__(9);
+var _Main = __webpack_require__(8);
 
-var _main2 = _interopRequireDefault(_main);
+var _Main2 = _interopRequireDefault(_Main);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -814,9 +1245,10 @@ exports.default = _react2.default.createElement(
     { history: _reactRouter.browserHistory },
     _react2.default.createElement(
         _reactRouter.Route,
-        { path: '/', component: _header2.default },
-        _react2.default.createElement(_reactRouter.IndexRoute, { component: _main2.default }),
-        _react2.default.createElement(_reactRouter.Route, { path: 'view/:name', component: _show_list_item2.default })
+        { path: '/', component: _Main2.default },
+        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Main2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/plans', component: _Main2.default }),
+        _react2.default.createElement(_reactRouter.Route, { path: '/store', component: _Main2.default })
     )
 );
 

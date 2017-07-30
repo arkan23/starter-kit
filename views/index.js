@@ -6,6 +6,7 @@ import { Router, browserHistory } from 'react-router';
 import reducers from './src/reducers/index';
 import routes from './src/routes';
 
+//import '../public/js/graf.js';
 
 /*
 Here we are getting the initial state injected by the server. See routes/index.js for more details
