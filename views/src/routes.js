@@ -9,8 +9,8 @@ export default (
     <Router history={ browserHistory } >
         <Route path="/" component={Main}>
             <IndexRoute component={Main} />
-            <Route path="/plans" component={Main}></Route>
-            <Route path="/store" component={Main}></Route>
+            <Route path="/plans" component={Header}></Route>
+            <Route path="/store" component={Header}></Route>
         </Route>
 
     </Router>

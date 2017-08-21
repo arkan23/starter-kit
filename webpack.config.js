@@ -1,5 +1,8 @@
 const webpack = require('webpack');
 var nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+
 
 module.exports = [
     {
@@ -41,12 +44,28 @@ module.exports = [
         module: {
             loaders: [{
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: ['babel-loader','css-loader',"style-loader"],
                 query: {
                     presets: ['react', 'es2015', 'stage-1']
                 }
-            }]
-        }
+            }],
+            rules:[
+              { test:/\.css$/,
+                use: ExtractTextPlugin.extract({
+                  fallbackLoader: "style-loader",
+                  loader: "css-loader",
+                  publicPath: "/bin"
+                })
+              }
+            ]
+        },
+        plugins: [
+              new ExtractTextPlugin({
+                filename: "bundle.css",
+                disable: false,
+                allChunks: true
+              })
+            ]
         //If you want to minify your files uncomment this
         // ,
         // plugins: [
@@ -60,4 +79,5 @@ module.exports = [
         //     }),
         // ]
     }
+
 ]
