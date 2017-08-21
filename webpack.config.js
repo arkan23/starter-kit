@@ -44,24 +44,27 @@ module.exports = [
         module: {
             loaders: [{
                 exclude: /node_modules/,
-                loader: ['babel-loader','css-loader',"style-loader"],
+                loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2015', 'stage-1']
                 }
-            }],
-            rules:[
-              { test:/\.css$/,
-                use: ExtractTextPlugin.extract({
-                  fallbackLoader: "style-loader",
-                  loader: "css-loader",
-                  publicPath: "/bin"
-                })
+            },
+            {
+              test: /\.css$/,
+              //loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+              loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use:'css-loader'})
+            }
+
+          ],
+          /*  rules:[
+              {  test: /\.css$/,
+                 use: ExtractTextPlugin.extract({fallback:"style-loader",use: "css-loader"})
               }
-            ]
+            ]*/
         },
         plugins: [
               new ExtractTextPlugin({
-                filename: "bundle.css",
+                filename: "[name].css",
                 disable: false,
                 allChunks: true
               })

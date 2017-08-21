@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reducers from './src/reducers/index';
 import routes from './src/routes';
-import css from './app.css';
+
 //import '../public/js/graf.js';
 
 /*
@@ -20,5 +20,5 @@ ReactDOM.render(
     <Provider store={createStore(reducers, initialState)}>
         <Router history={ browserHistory } routes={ routes } />
     </Provider>,
-    document.getElementById("reactbody")
+    document.getElementById("sb-site")
 );
