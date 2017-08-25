@@ -184,6 +184,24 @@ function renderFullPage(html, initialState) {
       <script type="text/javascript" src="../bin/assets/js-core/transition.js"></script>
       <script type="text/javascript" src="../bin/assets/js-core/modernizr.js"></script>
       <script type="text/javascript" src="../bin/assets/js-core/jquery-cookie.js"></script>
+			<script type="text/javascript" src="../bin/assets/widgets/datepicker/datepicker.js"></script>
+			<script type="text/javascript" src="../bin/assets/widgets/spinner/spinner.js"></script>
+
+
+
+
+			<script type="text/javascript" src="../bin/assets/widgets/uniform/uniform.js"></script>
+	    <script type="text/javascript" src="../bin/assets/widgets/uniform/uniform-demo.js"></script>
+	    <script type="text/javascript" src="../bin/assets/widgets/chosen/chosen.js"></script>
+
+
+
+
+
+
+
+
+
       <script type="text/javascript">$(window).load(function(){
             setTimeout(function() {
                 $('#loading').fadeOut( 400, "linear" );
@@ -248,16 +266,44 @@ function renderFullPage(html, initialState) {
 
         $(document).ready(function() {
             $('.dataTables_filter input').attr("placeholder", "Search...");
-        });</script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/chart-js/chart-core.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/chart-js/chart-doughnut.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/chart-js/chart-demo-1.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot-resize.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot-stack.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot-pie.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot-tooltip.js"></script>
-        <script type="text/javascript" src="../bin/assets/widgets/charts/flot/flot-demo-1.js"></script>
+        });
+
+
+				$(function() {
+		            var toc = $("#tocify-menu").tocify({context: ".toc-tocify", showEffect: "fadeIn",extendPage:false,selectors: "h2, h3, h4" });
+		        });
+		        jQuery(document).ready(function($) {
+
+		        /* Sticky bars */
+
+		        $(function() { "use strict";
+
+		            $('.sticky-nav').hcSticky({
+		                top: 50,
+		                innerTop: 50,
+		                stickTo: 'document'
+		            });
+							});
+		        });
+
+
+						$(function() { "use strict";
+						        $('.bootstrap-datepicker').bsdatepicker({
+						            format: 'mm-dd-yyyy'
+						        });
+						    });
+
+								$(function() { "use strict";
+        $(".spinner-input").spinner();
+    });</script>
+
+				</script>
+
+
+				<script type="text/javascript" src="../bin/assets/widgets/sticky/sticky.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/tocify/tocify.js"></script>
+
+
         <script type="text/javascript" src="../bin/assets/widgets/charts/sparklines/sparklines.js"></script>
         <script type="text/javascript" src="../bin/assets/widgets/charts/sparklines/sparklines-demo.js"></script>
         <link rel="stylesheet" type="text/css" href="../bin/assets/widgets/owlcarousel/owlcarousel.css">
@@ -266,7 +312,7 @@ function renderFullPage(html, initialState) {
 
 
 
-
+	<script type="text/javascript" src="../bin/assets/widgets/tabs/tabs.js"></script>
   <script type="text/javascript" src="../bin/assets/widgets/dropdown/dropdown.js"></script>
   <script type="text/javascript" src="../bin/assets/widgets/tooltip/tooltip.js"></script>
   <script type="text/javascript" src="../bin/assets/widgets/popover/popover.js"></script>
