@@ -334,31 +334,31 @@ function renderFullPage(html, initialState) {
 
 
 
-	<script type="text/javascript" src="../bin/assets/widgets/tabs/tabs.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/dropdown/dropdown.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/tooltip/tooltip.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/popover/popover.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/progressbar/progressbar.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/button/button.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/collapse/collapse.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/superclick/superclick.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/input-switch/inputswitch-alt.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/slimscroll/slimscroll.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/slidebars/slidebars.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/slidebars/slidebars-demo.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/charts/piegage/piegage.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/charts/piegage/piegage-demo.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/screenfull/screenfull.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/content-box/contentbox.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/material/material.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/material/ripples.js"></script>
-  <script type="text/javascript" src="../bin/assets/widgets/overlay/overlay.js"></script>
-  <script type="text/javascript" src="../bin/assets/js-init/widgets-init.js"></script>
-  <script type="text/javascript" src="../bin/assets/themes/admin/layout.js"></script>
-	<script src="../bin/app.bundle.js"></script>
-</div>
-</body>
-</html>
+      	<script type="text/javascript" src="../bin/assets/widgets/tabs/tabs.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/dropdown/dropdown.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/tooltip/tooltip.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/popover/popover.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/progressbar/progressbar.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/button/button.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/collapse/collapse.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/superclick/superclick.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/input-switch/inputswitch-alt.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/slimscroll/slimscroll.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/slidebars/slidebars.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/slidebars/slidebars-demo.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/charts/piegage/piegage.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/charts/piegage/piegage-demo.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/screenfull/screenfull.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/content-box/contentbox.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/material/material.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/material/ripples.js"></script>
+        <script type="text/javascript" src="../bin/assets/widgets/overlay/overlay.js"></script>
+        <script type="text/javascript" src="../bin/assets/js-init/widgets-init.js"></script>
+        <script type="text/javascript" src="../bin/assets/themes/admin/layout.js"></script>
+      	<script src="../bin/app.bundle.js"></script>
+        </div>
+      </body>
+    </html>
     `
 }
 
