@@ -4,9 +4,17 @@ import ReactDOMServer from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from '../views/src/routes';
 import reducers from '../views/src/reducers/index';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { ADD_ITEM } from '../views/src/actions/list_actions';
+import { ADD_ITEM, PROMISE } from '../views/src/actions/list_actions';
+import logger from 'redux-logger';
+
+import {topics} from '../db/controllers';
+
+import initialDataMiddleware from '../middlewares/initialData';
+
+
+import {getIssues,getData} from '../api';
 
 let router = express.Router();
 
@@ -24,7 +32,10 @@ router.get('/', (req, res) => {
 		    /*
              http://redux.js.org/docs/recipes/ServerRendering.html
 		     */
-			const store = createStore(reducers);
+
+      const createStoreWithMiddleware=applyMiddleware(initialDataMiddleware)(createStore);
+      const store = createStoreWithMiddleware(reducers);
+      //const store = createStore(reducers);
 
 			const html = ReactDOMServer.renderToString(
 				<Provider store={store}>
@@ -45,21 +56,32 @@ router.get('/', (req, res) => {
 
 			This will help SEO as well. If you load the webpage and make a request to the server to get all the
 			latest items/articles, by the time Google Search Engine may not see all the updated items/articles.
-
+export const ADD_ITEM = 'ADD_ITEM';
 			But if you inject the latest items/articles before it reaches the user, the Search Engine will see the
 			item/article immediately.
 			 */
-			store.dispatch({
-			    type: ADD_ITEM,
+
+    /*   store.dispatch({
+			    type: 'DDD',
           payload: {
-			               name: 'Components',
-                     description: 'Description for components'
-          }
+			              name: '11111',
+                    description: '22222222'
+                   }
+       });*/
+
+
+
+			store.dispatch({
+			    type: 'PROMISE',
+          actions: ['INITIAL_LOADING','INITIAL_LOADED','INITIAL_FALURE_LOADED'],
+          payload: getIssues(),
       });
 
 			const finalState = store.getState();
-
-			res.status(200).send(renderFullPage(html, finalState));
+      console.log(topics());
+      //console.log(store.getState());
+      res.json(finalState);
+			//res.status(200).send(renderFullPage(html, finalState));
 		} else {
 			res.status(404).send('Not found')
 		}

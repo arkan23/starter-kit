@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './routes/index';
-
+import connect from './db/connect';
+const connectToMongo=connect();
 let app = express();
 
 app.use('/bin', express.static('./bin'));
@@ -15,7 +16,7 @@ app.use('/store', router);
 app.use('/orders', router);
 
 
-app.listen(3002, function () {
+app.listen(3000, function () {
 	console.log('Hello World listening on port 3000!');
 });
 

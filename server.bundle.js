@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -158,7 +158,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _Logo = __webpack_require__(15);
+var _Logo = __webpack_require__(23);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -3962,6 +3962,8 @@ var ITEM_CLICKED = exports.ITEM_CLICKED = 'ITEM_CLICKED';
 var ITEM_VIEW = exports.ITEM_VIEW = 'ITEM_VIEW';
 var ADD_ITEM = exports.ADD_ITEM = 'ADD_ITEM';
 
+var PROMISE = exports.PROMISE = 'PROMISE';
+
 function selectItem(listItem) {
     return {
         type: ITEM_CLICKED,
@@ -3991,18 +3993,122 @@ module.exports = require("express");
 
 /***/ }),
 /* 9 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("react-redux");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(10);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CollectionSchema = new _mongoose2.default.Schema({
+  title: String,
+  author: String,
+  body: String,
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs: Number
+  }
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('TestCollection', CollectionSchema);
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(10);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _models = __webpack_require__(18);
+
+var _models2 = _interopRequireDefault(_models);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_mongoose2.default.set('debug', false);
+
+exports.default = function () {
+  // Find the appropriate database to connect to, default to localhost if not found.
+
+
+  var connect = function connect() {
+
+    return new Promise(function (resolve, reject) {
+      _mongoose2.default.Promise = __webpack_require__(43);
+
+      var dbURI = 'mongodb://localhost:27017/salex';
+
+      // Create the database connection
+      //setTimeout(()=>{mongoose.connect(dbURI,{ useMongoClient: true, })},6000)
+      _mongoose2.default.connect(dbURI, { useMongoClient: true });
+
+      // CONNECTION EVENTS
+      // When successfully connected
+      resolve(_mongoose2.default.connection.on('connected', function () {
+        console.log('Mongoose default connection open to ' + dbURI);
+      }));
+
+      // If the connection throws an error
+      reject(_mongoose2.default.connection.on('error', function (err) {
+        console.log('Mongoose default connection error: ' + err);
+      }));
+
+      // When the connection is disconnected
+      _mongoose2.default.connection.on('disconnected', function () {
+        console.log('Mongoose default connection disconnected');
+      });
+    });
+  };
+
+  connect();
+
+  (0, _models2.default)();
+};
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4020,25 +4126,37 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(36);
+var _server = __webpack_require__(48);
 
 var _server2 = _interopRequireDefault(_server);
 
 var _reactRouter = __webpack_require__(1);
 
-var _routes = __webpack_require__(34);
+var _routes = __webpack_require__(42);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _index = __webpack_require__(32);
+var _index = __webpack_require__(40);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(12);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(11);
 
 var _list_actions = __webpack_require__(7);
+
+var _reduxLogger = __webpack_require__(49);
+
+var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+var _controllers = __webpack_require__(16);
+
+var _initialData = __webpack_require__(19);
+
+var _initialData2 = _interopRequireDefault(_initialData);
+
+var _api = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4058,7 +4176,10 @@ router.get('/', function (req, res) {
             /*
                    http://redux.js.org/docs/recipes/ServerRendering.html
              */
-            var store = (0, _redux.createStore)(_index2.default);
+
+            var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_initialData2.default)(_redux.createStore);
+            var store = createStoreWithMiddleware(_index2.default);
+            //const store = createStore(reducers);
 
             var html = _server2.default.renderToString(_react2.default.createElement(
                 _reactRedux.Provider,
@@ -4077,20 +4198,30 @@ router.get('/', function (req, res) {
             in the server which contains all you items). So you can quickly fetch and inject it into the webpage.
             		This will help SEO as well. If you load the webpage and make a request to the server to get all the
             latest items/articles, by the time Google Search Engine may not see all the updated items/articles.
-            		But if you inject the latest items/articles before it reaches the user, the Search Engine will see the
+            export const ADD_ITEM = 'ADD_ITEM';
+            But if you inject the latest items/articles before it reaches the user, the Search Engine will see the
             item/article immediately.
              */
+
+            /*   store.dispatch({
+               type: 'DDD',
+                  payload: {
+                         name: '11111',
+                            description: '22222222'
+                           }
+               });*/
+
             store.dispatch({
-                type: _list_actions.ADD_ITEM,
-                payload: {
-                    name: 'Components',
-                    description: 'Description for components'
-                }
+                type: 'PROMISE',
+                actions: ['INITIAL_LOADING', 'INITIAL_LOADED', 'INITIAL_FALURE_LOADED'],
+                payload: (0, _api.getIssues)()
             });
 
             var finalState = store.getState();
-
-            res.status(200).send(renderFullPage(html, finalState));
+            console.log((0, _controllers.topics)());
+            //console.log(store.getState());
+            res.json(finalState);
+            //res.status(200).send(renderFullPage(html, finalState));
         } else {
             res.status(404).send('Not found');
         }
@@ -4108,7 +4239,220 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 12 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getIssues = getIssues;
+exports.getData = getData;
+
+var _isomorphicFetch = __webpack_require__(45);
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(44).polyfill();
+function getIssues() {
+  return (0, _isomorphicFetch2.default)('http://pokeapi.co/api/v2/pokemon/')
+  //.then((res)=>{res.json()})
+  .then(function (response) {
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return response.json();
+  });
+  /*  .then(function(response) {
+         return response;
+    });*/
+}
+
+function getData() {
+  return [{ mass: [1, 2, 4, 10000], text: 'wer' }, { peren: {}, ver: "ver" }, { bool: false }];
+}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.topics = undefined;
+
+var _numbers = __webpack_require__(17);
+
+var _numbers2 = _interopRequireDefault(_numbers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.topics = _numbers2.default;
+exports.default = {
+  topics: _numbers2.default
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(46);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _TestCollection = __webpack_require__(9);
+
+var _TestCollection2 = _interopRequireDefault(_TestCollection);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/**
+ * List All numbers (no)
+ */
+var selectAll = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var data;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _TestCollection2.default.find({});
+
+          case 2:
+            data = _context.sent;
+            return _context.abrupt('return', data);
+
+          case 4:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function selectAll() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.default = selectAll;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = loadModels;
+function loadModels() {
+  //require('Articles');
+  __webpack_require__(9);
+  //require('Orders');
+  //require('Templates');
+}
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var middleware = function middleware(store) {
+  return function (next) {
+    return function (action) {
+
+      /*  if(action.then){
+      console.log("EEEEEE it is promise!!");
+        }
+      return next(action);*/
+      if (action.type != 'PROMISE') {
+        console.log('not promise');
+        return next(action);
+      }
+      console.log('promise');
+
+      var _action$actions = _slicedToArray(action.actions, 3),
+          startAction = _action$actions[0],
+          successAction = _action$actions[1],
+          failureAction = _action$actions[2];
+
+      store.dispatch({
+        type: startAction
+      });
+      /*  action.payload.then((data) =>{
+          if(data.then){
+            console.log(typeof data +` is promis`);
+          }else{
+            console.log(data);
+            console.log(typeof data +`  not fucking promis`);
+            const objData=data;
+            store.dispatch({
+                type: successAction,
+                payload: objData
+              });
+          }});*/
+      //console.log(stringJson);
+      /*  action.payload.then(
+        (data) => store.dispatch({
+          type:successAction,
+          payload:data
+        }),
+        (error) => store.dispatch({
+          type:failureAction,
+          payload:error
+        }));*/
+
+      action.payload.then(function (data) {
+
+        store.dispatch({
+          type: successAction,
+          payload: { per: 'data' }
+        });
+      });
+      //  cot data=action.payload.then((data)=>{return data});
+      //console.log(data);
+
+      /*  store.dispatch({
+          type: successAction,
+          payload: {per: 'data1'}
+        });*/
+      //action.payload.then((data)=>console.log(data));
+    };
+  };
+};
+
+exports.default = middleware;
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4118,12 +4462,17 @@ var _express = __webpack_require__(8);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(11);
+var _index = __webpack_require__(14);
 
 var _index2 = _interopRequireDefault(_index);
 
+var _connect = __webpack_require__(13);
+
+var _connect2 = _interopRequireDefault(_connect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var connectToMongo = (0, _connect2.default)();
 var app = (0, _express2.default)();
 
 app.use('/bin', _express2.default.static('./bin'));
@@ -4136,7 +4485,7 @@ app.use('/automenu', _index2.default);
 app.use('/store', _index2.default);
 app.use('/orders', _index2.default);
 
-app.listen(3002, function () {
+app.listen(3000, function () {
 	console.log('Hello World listening on port 3000!');
 });
 
@@ -4148,7 +4497,7 @@ app.listen(3002, function () {
 ///whith new stage-1
 
 /***/ }),
-/* 13 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4186,7 +4535,7 @@ var _Infobar = __webpack_require__(2);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Menuengine = __webpack_require__(18);
+var _Menuengine = __webpack_require__(26);
 
 var _Menuengine2 = _interopRequireDefault(_Menuengine);
 
@@ -4262,7 +4611,7 @@ var Automenu = function (_Component) {
 exports.default = Automenu;
 
 /***/ }),
-/* 14 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4300,7 +4649,7 @@ var _Infobar = __webpack_require__(2);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Lablengine = __webpack_require__(20);
+var _Lablengine = __webpack_require__(28);
 
 var _Lablengine2 = _interopRequireDefault(_Lablengine);
 
@@ -4840,7 +5189,7 @@ exports.default = Label;
 */
 
 /***/ }),
-/* 15 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4928,7 +5277,7 @@ var Logo = function (_Component) {
 exports.default = Logo;
 
 /***/ }),
-/* 16 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4966,39 +5315,39 @@ var _Infobar = __webpack_require__(2);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Topbox = __webpack_require__(28);
+var _Topbox = __webpack_require__(36);
 
 var _Topbox2 = _interopRequireDefault(_Topbox);
 
-var _Weekgraf = __webpack_require__(29);
+var _Weekgraf = __webpack_require__(37);
 
 var _Weekgraf2 = _interopRequireDefault(_Weekgraf);
 
-var _Temperature = __webpack_require__(27);
+var _Temperature = __webpack_require__(35);
 
 var _Temperature2 = _interopRequireDefault(_Temperature);
 
-var _Tabledata = __webpack_require__(26);
+var _Tabledata = __webpack_require__(34);
 
 var _Tabledata2 = _interopRequireDefault(_Tabledata);
 
-var _Maincarousel = __webpack_require__(25);
+var _Maincarousel = __webpack_require__(33);
 
 var _Maincarousel2 = _interopRequireDefault(_Maincarousel);
 
-var _Dashstatic = __webpack_require__(23);
+var _Dashstatic = __webpack_require__(31);
 
 var _Dashstatic2 = _interopRequireDefault(_Dashstatic);
 
-var _Contentbox = __webpack_require__(22);
+var _Contentbox = __webpack_require__(30);
 
 var _Contentbox2 = _interopRequireDefault(_Contentbox);
 
-var _Followers = __webpack_require__(24);
+var _Followers = __webpack_require__(32);
 
 var _Followers2 = _interopRequireDefault(_Followers);
 
-var _Activity = __webpack_require__(21);
+var _Activity = __webpack_require__(29);
 
 var _Activity2 = _interopRequireDefault(_Activity);
 
@@ -5122,7 +5471,7 @@ exports.default = Main;
 //////////////////////////////////////////////////
 
 /***/ }),
-/* 17 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5158,7 +5507,7 @@ var _Infobar = __webpack_require__(2);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Neworder = __webpack_require__(30);
+var _Neworder = __webpack_require__(38);
 
 var _Neworder2 = _interopRequireDefault(_Neworder);
 
@@ -5241,7 +5590,7 @@ var Orders = function (_Component) {
 exports.default = Orders;
 
 /***/ }),
-/* 18 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5600,7 +5949,7 @@ exports.default = Menuengine;
   */
 
 /***/ }),
-/* 19 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5656,7 +6005,7 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 20 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6225,7 +6574,7 @@ var Lablengine = function (_Component) {
 exports.default = Lablengine;
 
 /***/ }),
-/* 21 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6405,7 +6754,7 @@ var Activity = function (_Component) {
 exports.default = Activity;
 
 /***/ }),
-/* 22 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6421,7 +6770,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactChartjs = __webpack_require__(35);
+var _reactChartjs = __webpack_require__(47);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6640,7 +6989,7 @@ export default Contentbox;
 */
 
 /***/ }),
-/* 23 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6771,7 +7120,7 @@ var Dashstatic = function (_Component) {
 exports.default = Dashstatic;
 
 /***/ }),
-/* 24 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6934,7 +7283,7 @@ var Followers = function (_Component) {
 exports.default = Followers;
 
 /***/ }),
-/* 25 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7276,7 +7625,7 @@ var Maincarousel = function (_Component) {
 exports.default = Maincarousel;
 
 /***/ }),
-/* 26 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7616,7 +7965,7 @@ var Tabledata = function (_Component) {
 exports.default = Tabledata;
 
 /***/ }),
-/* 27 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7734,7 +8083,7 @@ var Temperature = function (_Component) {
 exports.default = Temperature;
 
 /***/ }),
-/* 28 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7865,7 +8214,7 @@ var Topbox = function (_Component) {
 exports.default = Topbox;
 
 /***/ }),
-/* 29 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7928,7 +8277,7 @@ var Weekgraf = function (_Component) {
 exports.default = Weekgraf;
 
 /***/ }),
-/* 30 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8256,7 +8605,7 @@ exports.default = Neworder;
 */
 
 /***/ }),
-/* 31 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8272,7 +8621,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(11);
 
 var _list_actions = __webpack_require__(7);
 
@@ -8363,7 +8712,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getListItem: _list_actions.getListItem })(ShowListItem);
 
 /***/ }),
-/* 32 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8373,9 +8722,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(12);
 
-var _lists = __webpack_require__(33);
+var _lists = __webpack_require__(41);
 
 var _lists2 = _interopRequireDefault(_lists);
 
@@ -8388,7 +8737,7 @@ var rootReducer = (0, _redux.combineReducers)({
 exports.default = rootReducer;
 
 /***/ }),
-/* 33 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8418,6 +8767,8 @@ exports.default = function () {
                 case 'Reducers':
                     return _extends({}, state, { item: ListItems[2] });
             }
+        case 'INITIAL_LOADED':
+            return _extends({}, state, { salex: action.payload });
     }
     return state;
 };
@@ -8428,10 +8779,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var ListItems = [{ name: 'Actions', description: 'Description for actions' }, { name: 'Containers', description: 'Description for containers' }, { name: 'Reducers', description: 'Description for reducer' }];
 
-var INITIAL_STATE = { all: ListItems, item: null };
+var INITIAL_STATE = { all: ListItems, item: null, salex: null };
 
 /***/ }),
-/* 34 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8447,27 +8798,27 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(1);
 
-var _show_list_item = __webpack_require__(31);
+var _show_list_item = __webpack_require__(39);
 
 var _show_list_item2 = _interopRequireDefault(_show_list_item);
 
-var _header = __webpack_require__(19);
+var _header = __webpack_require__(27);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _Main = __webpack_require__(16);
+var _Main = __webpack_require__(24);
 
 var _Main2 = _interopRequireDefault(_Main);
 
-var _Label = __webpack_require__(14);
+var _Label = __webpack_require__(22);
 
 var _Label2 = _interopRequireDefault(_Label);
 
-var _Automenu = __webpack_require__(13);
+var _Automenu = __webpack_require__(21);
 
 var _Automenu2 = _interopRequireDefault(_Automenu);
 
-var _Orders = __webpack_require__(17);
+var _Orders = __webpack_require__(25);
 
 var _Orders2 = _interopRequireDefault(_Orders);
 
@@ -8489,16 +8840,46 @@ exports.default = _react2.default.createElement(
 );
 
 /***/ }),
-/* 35 */
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("bluebird");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+module.exports = require("es6-promise");
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-fetch");
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-chartjs-2");
 
 /***/ }),
-/* 36 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-logger");
 
 /***/ })
 /******/ ]);

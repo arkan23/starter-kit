@@ -2,6 +2,8 @@ export const ITEM_CLICKED = 'ITEM_CLICKED';
 export const ITEM_VIEW = 'ITEM_VIEW';
 export const ADD_ITEM = 'ADD_ITEM';
 
+export const PROMISE = 'PROMISE';
+
 
 export function selectItem(listItem) {
     return {

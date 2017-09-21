@@ -6,7 +6,7 @@ let ListItems = [
     { name: 'Reducers', description: 'Description for reducer' }
 ];
 
-const INITIAL_STATE = { all: ListItems, item: null};
+const INITIAL_STATE = { all: ListItems, item: null, salex: null};
 
 export default function(state = INITIAL_STATE, action) {
     switch(action.type) {
@@ -23,6 +23,8 @@ export default function(state = INITIAL_STATE, action) {
                 case 'Reducers':
                     return {...state, item: ListItems[2] };
             }
+        case 'INITIAL_LOADED':
+            return {...state, salex: action.payload };
     }
     return state;
 }
