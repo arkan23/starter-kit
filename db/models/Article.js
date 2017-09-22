@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
-import _ from 'lodash';
 
-const {Schema}=mongoose;
+//const {Schema}=mongoose;
 
-const ArticleSchema=new Schema({
+const ArticleSchema=new mongoose.Schema({
   _id: String,
   name : String,
   template : {type: String, ref: 'ArticleTemplate'},
