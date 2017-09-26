@@ -1,6 +1,6 @@
 import _ from "lodash";
 import Product from "../models/Product";
-import TestCollection from "../models/TestCollection";
+//import TestCollection from "../models/TestCollection";
 import Line from "../models/Line";
 import ArticleTemplate from "../models/ArticleTemplate";
 import Article from "../models/Article";
@@ -9,47 +9,220 @@ import OrderStatus from "../models/OrderStatus";
 import ProductStatus from "../models/ProductStatus";
 import User from "../models/User";
 import Device from "../models/Device";
+
 /**ArticleTemplate
  * List All numbers (no)
  */
-function randWDclassic(numCount,length,abd="abcdefghijklmnopqrstuvwxyz0123456789",levels,boxCount){  // [ 3 ] random words and digits by the wocabulary
+ /// comment
+ function randWDclassic(countNum,boxChild,palletChild,length,lengthp,lengthb,
+ 											abd='abcdefghijklmnopqrstuvwxyz0123456789',
+ 											abdb='abcdefghijklmnopqrstuvwxyz0123456789',
+ 											abdp='abcdefghijklmnopqrstuvwxyz0123456789',
+ 											type,
+ 											typeb,
+ 											typep,
+ 											levels,boxCount,pallCount){  // [ 3 ] random words and digits by the wocabulary
+
+
+      let aL = abd.length,aLp = abdp.length,aLb = abdb.length;
+ 	    let massPallet=[],massBox=[],massSerials=[];
+
+     	//  1000 / 20 / 4 /
+     	const boxNum=Math.ceil(countNum/boxChild);
+     	const palletNum=Math.ceil(boxNum/palletChild);
+     	//const countNum=1000;
+     	//const boxNum=50;
+     	//const palletNum=13;
+     //console.log(palletNum);
+
+     if(typep=='datamatrix'){
+     	for (let i = 0; i < palletNum; i++) {
+
+     		let s ='';
+     		while(s.length < lengthp) s += abdp[Math.random() * aLp|0];
+     		let text='parent';
+
+
+     			massPallet[i]={
+     								_id: s,
+     								article: 'levels',
+     								order: 'order',
+                    aggregation:0,
+     								status: 1,
+     								serialized: new Date(),
+     								line: 'line1',
+     								parent: text
+     							}
+     	}
+     }else{
+     	for (let i = 0; i < palletNum; i++) {
+     		let s ='';
+     		const numLength=lengthp-typep.length;
+     		while(s.length < numLength) s += abdp[Math.random() * aLp|0];
+     		let text='parent';
+     			massPallet[i]={
+     								_id: typep+s,
+     								article: 'levels',
+     								order: 'order',
+                    aggregation:0,
+     								status: 1,
+     								serialized: new Date(),
+     								line: 'line1',
+     								parent: text
+     							}
+     	}
+     }
 
 
 
 
- let aL = abd.length, obj = {};
+     if(typeb=='datamatrix'){
+     	let j=0;
+     	let count=0;
+     	for (let i = 0; i < boxNum; i++) {
+     		let s ='';
+     		while(s.length < lengthb) s += abdb[Math.random() * aLb|0];
+     			if(count<palletChild){
+     				massBox[i]={
+     									_id: s,
+     									article: 'levels',
+     									order: 'order',
+     									status: 1,
+                      aggregation:0,
+     									serialized: new Date(),
+     									line: 'line1',
+     									parent: massPallet[j]._id
+     								}
+     				count++;
+     			}else{
+     				j++;
+     				i--;
+     				count=0;
+     			}
+     	}
+     }else{
+     		let j=0;
+     		let count=0;
+     	for (let i = 0; i < boxNum; i++) {
+     		let s ='';
+     		const numLength=lengthb-typeb.length;
+     		while(s.length < numLength) s += abdb[Math.random() * aLb|0];
+     			if(count<palletChild){
+     				massBox[i]={
+     									_id: typeb+s,
+     									article: 'levels',
+     									order: 'order',
+     									status: 1,
+                      aggregation:0,
+     									serialized: new Date(),
+     									line: 'line1',
+     									parent: massPallet[j]._id
+     								};
+     				count=count+1;
+     			}else{
+     				j++;
+     				i--;
+     				count=0;
+     			}
+     	}
+     }
 
-	for (let i = 0; i < numCount; i++) {
-		let s ="";
-		while(s.length < length) s += abd[Math.random() * aL|0];
-		obj[s] = true; // запомнить строку в виде свойства объекта
-		//console.log(obj);
-	}
-  let testMass=Object.keys(obj);
-  function square(n) {
-  return {_id: n,test: "test" };
-  }
 
-  let newMass=_.map(testMass, square);
 
-	return testMass;
-}
+     if(type=='datamatrix'){
+     	let j=0;
+     	let count=0;
+     	for (let i = 0; i < countNum; i++) {
+     		let s ='';
+     		while(s.length < length) s += abd[Math.random() * aL|0];
+     			if(count<boxChild){
+     				massSerials[i]={
+     									_id: s,
+     									article: 'levels',
+     									order: 'order',
+     									status: 1,
+                      aggregation:0,
+     									serialized: new Date(),
+     									line: 'line1',
+     									parent: massBox[j]._id
+     								}
+     				count++;
+     			}else{
+     				j++;
+     				i--;
+     				count=0;
+     			}
+     	}
+     }else{
+     	let j=0;
+     	let count=0;
+     	for (let i = 0; i < countNum; i++) {
+     		let s ='';
+     		const numLength=length-type.length;
+     		while(s.length < numLength) s += abd[Math.random() * aL|0];
+     			if(count<boxChild){
+     				massSerials[i]={
+     									_id: type+s,
+     									article: 'levels',
+     									order: 'order',
+     									status: 1,
+                      aggregation:0,
+     									serialized: new Date(),
+     									line: 'line1',
+     									parent: massBox[j]._id
+     								}
+     				count++;
+     			}else{
+     				j++;
+     				i--;
+     				count=0;
+     			}
+     	}
+     }
+     var united=_.unionBy(massPallet, massBox,massSerials,'_id');
+     	//var zipped = _.zip(massPallet, massBox, massSerials);
+
+ 	    return united;
+ }
+ //console.log(randWDclassic(100,20,4,10,10,10,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456'));
 // console.log(randWDclassic(10,10,"123456789"));
 
-
+/////////////////////////////////////////////////
+// ADD NEW data
+/////////////////////////////////////////////////
 
  const selectAll = async () => {
    let initialData=null;
    initialData[0] = await Article.find({});
    initialData[1] = await Line.find({});
    initialData[2] = await Order.find({});
-   initialData[3] = await TestCollection.find({});
+   initialData[3] = await Product.find({});
    return initialData;
  };
 
 
 
- const generateNumbers=(options)=>{
+ const generateNumbers=async (options=true)=>{
+   let date=new Date;
+   let broken=0;
+   await console.log('___date flag___1 '+date.getSeconds()+'-'+date.getMilliseconds());
+   const mongoNumbers=await Product.find({},{_id:1});
+    date=new Date;
+   await console.log('___date flag___2 '+date.getSeconds()+'-'+date.getMilliseconds());
+   const newNumbers=await randWDclassic(100000,20,4,13,18,18,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456')
+    date=new Date;
+   await console.log('___date flag___3 '+date.getSeconds()+'-'+date.getMilliseconds());
+   //broken=await _.intersectionBy(newNumbers,mongoNumbers,'_id') ;
+   broken=await _.intersectionBy(mongoNumbers,newNumbers,'_id') ;
+   let numbers=_.unionBy(newNumbers,broken,'_id');
+   await console.log('broken numbers: '+broken.length);
+   await console.log('true numbers: '+numbers.length);
+    date=new Date;
+   await console.log('___date flag___4 '+date.getSeconds()+'-'+date.getMilliseconds());
+
+   const numbersData= await Product.create(numbers);
+    date=new Date;
+   await console.log('___date flag___5 '+date.getSeconds()+'-'+date.getMilliseconds());
    return numbersData;
  }
 
@@ -132,7 +305,36 @@ function randWDclassic(numCount,length,abd="abcdefghijklmnopqrstuvwxyz0123456789
    return articleTemplate;
  };
 
+
+
+
+
+
+ /////////////////////////////////////////////////
+ // END ADD NEW data
+ /////////////////////////////////////////////////
+
+ /////////////////////////////////////////////////
+ // SELECT NEW data
+ /////////////////////////////////////////////////
+
+
+ /////////////////////////////////////////////////
+ // END SELECT NEW data
+ /////////////////////////////////////////////////
+
 /*
+
+
+
+ const addProduct = async () => {
+
+
+   const product = await Product.create(randWDclassic(100,20,4,10,10,10,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456'));
+
+   return product;
+ };
+
 
  const addArticleTemplate_Test = async () => {
    const articleTemplate = ArticleTemplate.create({
@@ -286,4 +488,4 @@ function randWDclassic(numCount,length,abd="abcdefghijklmnopqrstuvwxyz0123456789
    return device;
  };
 */
- export default addLine;
+ export default generateNumbers;

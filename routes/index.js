@@ -82,10 +82,10 @@ export const ADD_ITEM = 'ADD_ITEM';
         res.status(200).send(renderFullPage(html, finalState));
         //res.json(finalState);
       });
-
-      //console.log(topics());
+      //topics();
+      console.log(topics());
         console.log("flag");
-    //  console.log(topics());
+     //topics();
       //console.log(store.getState());
       ;
 			//res.status(200).send(renderFullPage(html, finalState));
