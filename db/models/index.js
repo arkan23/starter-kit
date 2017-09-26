@@ -1,6 +1,12 @@
 export default function loadModels() {
-  //require('Articles');
-  require('./TestCollection');
-  //require('Orders');
-  //require('Templates');
+  require('./Article');
+  require('./OrderStatus');
+  require('./Line');
+  require('./Log');
+  require('./Product');
+  require('./ProductStatus');
+  require('./User');
+  //require('./TestCollection');
+  require('./Order');
+  require('./ArticleTemplate');
 }

@@ -10,12 +10,12 @@ const ProductsSchema = new mongoose.Schema(
   order: { type: String, ref: 'Order'},
   article:   { type: String, ref: 'Article'},
   aggregation: Number,
-  status: { type: Number, ref 'ProductStatus',
+  status: { type: Number, ref: 'ProductStatus'},
   serialized: Date,
   line: { type: String, ref: 'Line'},
-  parent: String
+  parent: String,
 },{
-  "timestamps":true
+  timestamp: true
 });
 
 // Compiles the schema into a model, opening (or creating, if

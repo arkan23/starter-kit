@@ -3,22 +3,22 @@ import mongoose from 'mongoose';
 //const {Schema}=mongoose;
 
 const ArticleSchema=new mongoose.Schema({
-  _id: String,
+  //_id: String,
   name : String,
   template : {type: String, ref: 'ArticleTemplate'},
   snsSources:{
-      0:{
+      "0":{
         id: String,
         alphavit: String,
         length: Number,
       },
-      2:{
+      "2":{
         id: String,
         alphavit: String,
         length: Number,
         gs1Prefix: String,
       },
-      3:{
+      "3":{
         id: String,
         alphavit: String,
         length: Number,

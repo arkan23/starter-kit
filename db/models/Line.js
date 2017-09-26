@@ -8,7 +8,7 @@ const LineSchema = new mongoose.Schema(
 {
   _id:  String,
   name: String,
-  devices:{},
+  devices: String,
   state: String,
   order: String,
 });

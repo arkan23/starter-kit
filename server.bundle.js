@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 61);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -76,10 +76,16 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -140,7 +146,7 @@ var Infobar = function (_Component) {
 exports.default = Infobar;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -156,9 +162,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _Logo = __webpack_require__(23);
+var _Logo = __webpack_require__(35);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -1628,7 +1634,7 @@ var Navbar = function (_Component) {
 exports.default = Navbar;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1962,7 +1968,7 @@ var SBleft = function (_Component) {
 exports.default = SBleft;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2479,7 +2485,7 @@ var SBright = function (_Component) {
 exports.default = SBright;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3946,7 +3952,7 @@ exports.default = Topbar;
 */
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3986,12 +3992,6 @@ function addItem(item) {
 }
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4002,22 +4002,155 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(10);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CollectionSchema = new _mongoose2.default.Schema({
-  title: String,
-  author: String,
-  body: String,
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs: Number
+//const {Schema}=mongoose;
+
+var ArticleSchema = new _mongoose2.default.Schema({
+  //_id: String,
+  name: String,
+  template: { type: String, ref: 'ArticleTemplate' },
+  snsSources: {
+    "0": {
+      id: String,
+      alphavit: String,
+      length: Number
+    },
+    "2": {
+      id: String,
+      alphavit: String,
+      length: Number,
+      gs1Prefix: String
+    },
+    "3": {
+      id: String,
+      alphavit: String,
+      length: Number,
+      gs1Prefix: String
+    }
+  },
+  gtin: String,
+  expiryPeriod: Number,
+  special: Number
+});
+
+exports.default = _mongoose2.default.model("Articles", ArticleSchema);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//const {Schema}=mongoose;
+
+var ArticleSchema = new _mongoose2.default.Schema({
+  //  _id: String,
+  name: String,
+  aggregation: {
+    "0": {
+      displayName: String,
+      childCount: Number
+    },
+    "2": {
+      displayName: String,
+      childCount: Number
+    },
+    "3": {
+      displayName: String,
+      childCount: Number
+    }
+  },
+  gs1Data: {
+    "0": {
+      "10": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      },
+      "17": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      },
+      "01": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      }
+    },
+    "2": {
+      "10": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      },
+      "02": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      }
+    },
+    "3": {
+      "10": {
+        name: String,
+        displayName: String,
+        _type: String,
+        writable: Number
+      }
+    }
   }
+}, {
+  "timestamps": true
+});
+//hjgjhg
+
+exports.default = _mongoose2.default.model("ArticleTemplate", ArticleSchema);
+//export default mongoose.model("Articletest",ArticleSchema);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LineSchema = new _mongoose2.default.Schema({
+  _id: String,
+  name: String,
+  devices: String,
+  state: String,
+  order: String
 });
 
 // Compiles the schema into a model, opening (or creating, if
@@ -4026,25 +4159,92 @@ var CollectionSchema = new _mongoose2.default.Schema({
  * Schema Definitions
  *
  */
-exports.default = _mongoose2.default.model('TestCollection', CollectionSchema);
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
+exports.default = _mongoose2.default.model('Line', LineSchema);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("redux");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OrdersSchema = new _mongoose2.default.Schema({
+  gs1Data: {
+    "0": {
+      "10": String,
+      "17": String,
+      "01": String
+    },
+    "2": {
+      "10": String,
+      "02": String
+    },
+    "3": {
+      "10": String
+    }
+  },
+  created: { type: Date, default: Date.now },
+  credentials: Number,
+  article: { type: String, ref: 'Article' },
+  expireDate: Date,
+  quantity: Number,
+  batchNumber: String,
+  name: String,
+  comments: String,
+  creator: { type: String, ref: 'Users' },
+  status: { type: Number, ref: 'OrderStatus' },
+  line: { type: String, ref: 'Line' },
+  snCount: {
+    "0": {
+      "1": Number,
+      "2": Number,
+      "3": Number,
+      "4": Number,
+      "5": Number
+    },
+    "1": {
+      "1": Number,
+      "2": Number,
+      "3": Number,
+      "4": Number,
+      "5": Number
+    },
+    "2": {
+      "1": Number,
+      "2": Number,
+      "3": Number,
+      "4": Number,
+      "5": Number
+    },
+    "3": {
+      "1": Number,
+      "2": Number,
+      "3": Number,
+      "4": Number,
+      "5": Number
+    }
+    /*text: String,
+    count: { type: Number, min: 0 },
+    date: { type: Date, default: Date.now }*/
+  } });
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('Order', OrdersSchema);
 
 /***/ }),
 /* 13 */
@@ -4057,11 +4257,427 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(10);
+var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _models = __webpack_require__(18);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OrderSchema = new _mongoose2.default.Schema({
+  _id: Number,
+  name: String
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('OrderStatus', OrderSchema);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductsSchema = new _mongoose2.default.Schema({
+  _id: String,
+  order: { type: String, ref: 'Order' },
+  article: { type: String, ref: 'Article' },
+  aggregation: Number,
+  status: { type: Number, ref: 'ProductStatus' },
+  serialized: Date,
+  line: { type: String, ref: 'Line' },
+  parent: String
+}, {
+  timestamp: true
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('Product', ProductsSchema);
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//const {Schema}=mongoose;
+var StatusSchema = new _mongoose2.default.Schema({
+  _id: String,
+  name: String
+});
+//hjgjhg
+
+exports.default = _mongoose2.default.model("Productstatus", StatusSchema);
+//export default mongoose.model("Articletest",ArticleSchema);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserSchema = new _mongoose2.default.Schema({
+  //_id: String,
+  //text: String,
+  name: String,
+  password: String,
+  token: String,
+  createdAt: { type: Date, default: Date.now }
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('User', UserSchema);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("lodash");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _express = __webpack_require__(17);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _index = __webpack_require__(32);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _connect = __webpack_require__(24);
+
+var _connect2 = _interopRequireDefault(_connect);
+
+var _lodash = __webpack_require__(18);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var connectToMongo = (0, _connect2.default)();
+var app = (0, _express2.default)();
+
+app.use('/bin', _express2.default.static('./bin'));
+app.use('/stylesheets', _express2.default.static('./public/stylesheets'));
+
+app.use('/', _index2.default);
+app.use('/view/*', _index2.default);
+app.use('/salex', _index2.default);
+app.use('/automenu', _index2.default);
+app.use('/store', _index2.default);
+app.use('/orders', _index2.default);
+
+app.listen(3000, function () {
+	console.log('Hello World listening on port 3000!');
+});
+
+/// comment
+function randWDclassic(countNum, boxChild, palletChild, length, lengthp, lengthb) {
+	var abd = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 'abcdefghijklmnopqrstuvwxyz0123456789';
+	var abdb = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 'abcdefghijklmnopqrstuvwxyz0123456789';
+	var abdp = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : 'abcdefghijklmnopqrstuvwxyz0123456789';
+	var type = arguments[9];
+	var typeb = arguments[10];
+	var typep = arguments[11];
+	var levels = arguments[12];
+	var boxCount = arguments[13];
+	var pallCount = arguments[14];
+	// [ 3 ] random words and digits by the wocabulary
+
+
+	var aL = abd.length,
+	    aLp = abdp.length,
+	    aLb = abdb.length;
+	var massPallet = [],
+	    massBox = [],
+	    massSerials = [];
+
+	//  1000 / 20 / 4 /
+	var boxNum = Math.ceil(countNum / boxChild);
+	var palletNum = Math.ceil(boxNum / palletChild);
+	//const countNum=1000;
+	//const boxNum=50;
+	//const palletNum=13;
+	//console.log(palletNum);
+
+	if (typep == 'datamatrix') {
+		for (var i = 0; i < palletNum; i++) {
+
+			var s = '';
+			while (s.length < lengthp) {
+				s += abdp[Math.random() * aLp | 0];
+			}var text = 'parent';
+			massPallet[i] = {
+				_id: s,
+				article: 'levels',
+				order: 'order',
+				status: 'new',
+				serialized: 'null',
+				line: 'line1',
+				parent: text
+			};
+		}
+	} else {
+		for (var _i = 0; _i < palletNum; _i++) {
+			var _s = '';
+			//console.log(i);
+			var numLength = lengthp - typep.length;
+			while (_s.length < numLength) {
+				_s += abdp[Math.random() * aLp | 0];
+			}var _text = 'parent';
+			massPallet[_i] = {
+				_id: typep + _s,
+				article: 'levels',
+				order: 'order',
+				status: 'new',
+				serialized: 'null',
+				line: 'line1',
+				parent: _text
+			};
+		}
+	}
+
+	if (typeb == 'datamatrix') {
+		var j = 0;
+		var count = 0;
+		for (var _i2 = 0; _i2 < boxNum; _i2++) {
+			var _s2 = '';
+			while (_s2.length < lengthb) {
+				_s2 += abdb[Math.random() * aLb | 0];
+			}if (count < palletChild) {
+				massBox[_i2] = {
+					_id: _s2,
+					article: 'levels',
+					order: 'order',
+					status: 'new',
+					serialized: 'null',
+					line: 'line1',
+					parent: massPallet[j]._id
+				};
+				count++;
+			} else {
+				j++;
+				_i2--;
+				count = 0;
+			}
+		}
+	} else {
+		var _j = 0;
+		var _count = 0;
+		for (var _i3 = 0; _i3 < boxNum; _i3++) {
+			var _s3 = '';
+			console.log(_i3);
+			var _numLength = lengthb - typeb.length;
+			while (_s3.length < _numLength) {
+				_s3 += abdb[Math.random() * aLb | 0];
+			}if (_count < palletChild) {
+				console.log(_count);
+				massBox[_i3] = {
+					_id: typeb + _s3,
+					article: 'levels',
+					order: 'order',
+					status: 'new',
+					serialized: 'null',
+					line: 'line1',
+					parent: massPallet[_j]._id
+				};
+				_count = _count + 1;
+			} else {
+				_j++;
+				_i3--;
+				_count = 0;
+			}
+		}
+	}
+
+	if (type == 'datamatrix') {
+		var _j2 = 0;
+		var _count2 = 0;
+		for (var _i4 = 0; _i4 < countNum; _i4++) {
+			var _s4 = '';
+			while (_s4.length < length) {
+				_s4 += abd[Math.random() * aL | 0];
+			}if (_count2 < boxChild) {
+				massSerials[_i4] = {
+					_id: _s4,
+					article: 'levels',
+					order: 'order',
+					status: 'new',
+					serialized: 'null',
+					line: 'line1',
+					parent: massBox[_j2]._id
+				};
+				_count2++;
+			} else {
+				_j2++;
+				_i4--;
+				_count2 = 0;
+			}
+		}
+	} else {
+		var _j3 = 0;
+		var _count3 = 0;
+		for (var _i5 = 0; _i5 < countNum; _i5++) {
+			var _s5 = '';
+			var _numLength2 = length - type.length;
+			while (_s5.length < _numLength2) {
+				_s5 += abd[Math.random() * aL | 0];
+			}if (_count3 < boxChild) {
+				massSerials[_i5] = {
+					_id: type + _s5,
+					article: 'levels',
+					order: 'order',
+					status: 'new',
+					serialized: 'null',
+					line: 'line1',
+					parent: massBox[_j3]._id
+				};
+				_count3++;
+			} else {
+				_j3++;
+				_i5--;
+				_count3 = 0;
+			}
+		}
+	}
+	//var zipped = _.zip(massPallet, massBox, massSerials);
+
+	return massBox;
+}
+console.log(randWDclassic(100, 20, 4, 10, 10, 10, '0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'datamatrix', '123450', '123456'));
+/// comment___2
+
+///whith new stage-1
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("babel-polyfill");
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getIssues = getIssues;
+exports.getData = getData;
+
+var _isomorphicFetch = __webpack_require__(57);
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+__webpack_require__(56).polyfill();
+function getIssues() {
+  return (0, _isomorphicFetch2.default)('http://pokeapi.co/api/v2/pokemon/')
+  //.then((res)=>{res.json()})
+  .then(function (response) {
+    if (response.status >= 400) {
+      throw new Error("Bad response from server");
+    }
+    return response.json();
+  });
+  /*  .then(function(response) {
+         return response;
+    });*/
+}
+function getData() {
+  return [{ mass: [1, 2, 4, 10000], text: 'wer' }, { peren: {}, ver: "ver" }, { bool: false }];
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _models = __webpack_require__(30);
 
 var _models2 = _interopRequireDefault(_models);
 
@@ -4072,7 +4688,7 @@ exports.default = function () {
   var connect = function connect() {
 
     return new Promise(function (resolve, reject) {
-      _mongoose2.default.Promise = __webpack_require__(43);
+      _mongoose2.default.Promise = __webpack_require__(55);
       _mongoose2.default.set('debug', false);
       var dbURI = 'mongodb://localhost:27017/salex';
 
@@ -4104,7 +4720,662 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 14 */
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.topics = undefined;
+
+var _numbers = __webpack_require__(26);
+
+var _numbers2 = _interopRequireDefault(_numbers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.topics = _numbers2.default;
+exports.default = {
+  topics: _numbers2.default
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _lodash = __webpack_require__(18);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _Product = __webpack_require__(14);
+
+var _Product2 = _interopRequireDefault(_Product);
+
+var _TestCollection = __webpack_require__(29);
+
+var _TestCollection2 = _interopRequireDefault(_TestCollection);
+
+var _Line = __webpack_require__(11);
+
+var _Line2 = _interopRequireDefault(_Line);
+
+var _ArticleTemplate = __webpack_require__(10);
+
+var _ArticleTemplate2 = _interopRequireDefault(_ArticleTemplate);
+
+var _Article = __webpack_require__(9);
+
+var _Article2 = _interopRequireDefault(_Article);
+
+var _Order = __webpack_require__(12);
+
+var _Order2 = _interopRequireDefault(_Order);
+
+var _OrderStatus = __webpack_require__(13);
+
+var _OrderStatus2 = _interopRequireDefault(_OrderStatus);
+
+var _ProductStatus = __webpack_require__(15);
+
+var _ProductStatus2 = _interopRequireDefault(_ProductStatus);
+
+var _User = __webpack_require__(16);
+
+var _User2 = _interopRequireDefault(_User);
+
+var _Device = __webpack_require__(27);
+
+var _Device2 = _interopRequireDefault(_Device);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/**ArticleTemplate
+ * List All numbers (no)
+ */
+function randWDclassic(numCount, length) {
+  var abd = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "abcdefghijklmnopqrstuvwxyz0123456789";
+  var levels = arguments[3];
+  var boxCount = arguments[4];
+  // [ 3 ] random words and digits by the wocabulary
+
+
+  var aL = abd.length,
+      obj = {};
+
+  for (var i = 0; i < numCount; i++) {
+    var s = "";
+    while (s.length < length) {
+      s += abd[Math.random() * aL | 0];
+    }obj[s] = true; // запомнить строку в виде свойства объекта
+    //console.log(obj);
+  }
+  var testMass = Object.keys(obj);
+  function square(n) {
+    return { _id: n, test: "test" };
+  }
+
+  var newMass = _lodash2.default.map(testMass, square);
+
+  return testMass;
+}
+// console.log(randWDclassic(10,10,"123456789"));
+
+
+var selectAll = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+    var initialData;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            initialData = null;
+            _context.next = 3;
+            return _Article2.default.find({});
+
+          case 3:
+            initialData[0] = _context.sent;
+            _context.next = 6;
+            return _Line2.default.find({});
+
+          case 6:
+            initialData[1] = _context.sent;
+            _context.next = 9;
+            return _Order2.default.find({});
+
+          case 9:
+            initialData[2] = _context.sent;
+            _context.next = 12;
+            return _TestCollection2.default.find({});
+
+          case 12:
+            initialData[3] = _context.sent;
+            return _context.abrupt("return", initialData);
+
+          case 14:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, undefined);
+  }));
+
+  return function selectAll() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var generateNumbers = function generateNumbers(options) {
+  return numbersData;
+};
+
+var addLine = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    var line;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _Line2.default.create({ _id: "Line1", name: "Line1", devices: "TQSSM", state: "stopped", order: "s0" });
+
+          case 2:
+            line = _context2.sent;
+            return _context2.abrupt("return", line);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function addLine() {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var addOrder = function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(options) {
+    var order;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return _Order2.default.create({ gs1Data: {
+                "0": { "10": options.batch, "17": dateConvert(options.expDate), "01": options.gtin },
+                "2": { "10": options.batch, "02": options.gtin },
+                "3": { "10": options.batch }
+              },
+              credentials: 0,
+              article: options.article,
+              expireDate: options.expDate,
+              quantity: options.quantity,
+              batchNumber: options.batch,
+              name: options.name,
+              comments: options.comments,
+              creator: options.creator,
+              status: 10,
+              snCount: { "0": { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+                "1": { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+                "2": { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+                "3": { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 }
+              },
+              line: options.line
+            }, function (err, small) {
+              if (err) return handleError(err);
+            });
+
+          case 2:
+            order = _context3.sent;
+            return _context3.abrupt("return", order);
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, undefined);
+  }));
+
+  return function addOrder(_x2) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+var addArticle = function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(options) {
+    var article;
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            article = _Article2.default.create({
+              name: options.name,
+              template: options.template,
+              snsSourse: { "0": { id: options.id, alphavit: options.alphavit, length: options.length },
+                "2": { id: options.id, alphavit: options.alphavit, length: options.length, gs1Prefix: options.gs1Prefix },
+                "3": { id: options.id, alphavit: options.alphavit, length: options.length, gs1Prefix: options.gs1Prefix } },
+              gtin: options.gtin,
+              expiryPeriod: options.expPer,
+              special: 0
+            }, function (err, small) {
+              if (err) return handleError(err);
+            });
+            return _context4.abrupt("return", article);
+
+          case 2:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4, undefined);
+  }));
+
+  return function addArticle(_x3) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var addArticleTemplate = function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(options) {
+    var articleTemplate;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            articleTemplate = _ArticleTemplate2.default.create({
+              name: options.name,
+              aggregation: { "0": { displayName: "serialization", chidCount: options.serialization },
+                "2": { displayName: "box", chidCount: options.box },
+                "3": { displayName: "pallet", chidCount: options.pallet } },
+              gs1Data: {
+                "0": {
+                  "10": { name: "[10]Batch or Lot Number(X..20)", displayName: "[10]Batch or Lot Number(X..20)", _type: "string", writable: 1 },
+                  "17": { name: "[17] Expiration Date (N6)", displayName: "[17] Expiration Date (N6)", _type: "string", writable: 1 },
+                  "01": { name: "[01] GTIN (N14)", displayName: "[01] GTIN (N14)", _type: "string", writable: 1 }
+                },
+                "2": {
+                  "10": { name: "[10]Batch or Lot Number(X..20)", displayName: "[10]Batch or Lot Number(X..20)", _type: "string", writable: 1 },
+                  "02": { name: "[02] GTIN of Contained Trade Items (N14)", displayName: "[02] GTIN of Contained Trade Items (N14)", _type: "string", writable: 1 }
+                },
+                "3": {
+                  "10": { name: "[10]Batch or Lot Number(X..20)", displayName: "[10]Batch or Lot Number(X..20)", _type: "string", writable: 1 }
+                }
+              } });
+            return _context5.abrupt("return", articleTemplate);
+
+          case 2:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, undefined);
+  }));
+
+  return function addArticleTemplate(_x4) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+/*
+
+ const addArticleTemplate_Test = async () => {
+   const articleTemplate = ArticleTemplate.create({
+     name:"SSCC_1",
+     aggregation:{"0":{displayName:"serialization",childCount:20},
+                  "2":{displayName:"box",childCount:4},
+                  "3":{displayName:"pallet",childCount:1}
+                 },
+     gs1Data:{
+              "0":{
+                   "10":{name:"[10]Batch or Lot Number(X..20)",displayName:"[10]Batch or Lot Number(X..20)",_type:"string",writable:1},
+                   "17":{name:"[17] Expiration Date (N6)",displayName:"[17] Expiration Date (N6)",_type:"string",writable:1},
+                   "01":{name:"[01] GTIN (N14)",displayName:"[01] GTIN (N14)",_type:"string",writable:1},
+                  },
+              "2":{
+                   "10":{name:"[10]Batch or Lot Number(X..20)",displayName:"[10]Batch or Lot Number(X..20)",_type:"string",writable:1},
+                   "02":{name:"[02] GTIN of Contained Trade Items (N14)",displayName:"[02] GTIN of Contained Trade Items (N14)",_type:"string",writable:1},
+                  },
+              "3":{
+                   "10":{name:"[10]Batch or Lot Number(X..20)",displayName:"[10]Batch or Lot Number(X..20)",_type:"string",writable:1}
+                  }
+              },
+    });
+   return articleTemplate;
+ };
+
+ const addArticle_Test = async () => {
+   const article= Article.create({
+     name:'testArticle',
+     template:'59c8df6e98b2ae14ba259ab9',
+     snsSourse:{"0":{id:'Datamatrix',alphavit:'0123456789',length:13},
+                "2":{id:'SSCC',alphavit:'0123456789',length:18,gs1Prefix:'0123456'},
+                "3":{id:'SSCC',alphavit:'0123456789',length:18,gs1Prefix:'0123456'},
+               },
+     gtin:'01234561234560',
+     expiryPeriod:365,
+     special:0
+   });
+   return article;
+ };
+
+
+
+ const addOrder_Test = async () => {
+   const order = await Order.create({gs1Data:{
+     "0":{"10":'1234',"17":'210918',"01":'01234561234560'},
+     "2":{"10":'1234',"02":'01234561234560'},
+     "3":{"10":'1234'}
+   },
+   credentials:0,
+   article:'59c8e3c22d9fea177d8acc60',
+   expireDate:Date("2018-09-21T08:06:59.138+0000"),
+   quantity:300,
+   batchNumber:1234,
+   name:'test_order',
+   comments:'_no',
+   creator:'user',
+   status:10,
+   snCount:{"0":{"1":0,"2":0,"3":0,"4":0,"5":0},
+            "1":{"1":0,"2":0,"3":0,"4":0,"5":0},
+            "2":{"1":0,"2":0,"3":0,"4":0,"5":0},
+            "3":{"1":0,"2":0,"3":0,"4":0,"5":0},
+          },
+   line:'Line1'
+  },
+     function (err, small) {if (err) return handleError(err)});
+   return order;
+ };
+
+
+ const orderStatus_Test = async () => {
+   const article= await OrderStatus.create([{
+     _id:1,
+     name:'Finished'
+   },{
+     _id:20,
+     name:'Closed'
+   },{
+     _id:4,
+     name:'Suspended'
+   },{
+     _id:11,
+     name:'Starting'
+   },{
+     _id:12,
+     name:'Stopping'
+   },{
+     _id:13,
+     name:'Error'
+   },{
+     _id:5,
+     name:'Generating'
+   },{
+     _id:14,
+     name:'Loaded'
+   },{
+     _id:15,
+     name:'Unloaded'
+   },{
+     _id:16,
+     name:'Unassigned'
+   }]);
+   return article;
+ };
+
+
+ const productStatus_Test = async () => {
+   const article= await ProductStatus.create([{
+     _id:1,
+     name:'New'
+   },{
+     _id:2,
+     name:'Fetched'
+   },{
+     _id:3,
+     name:'Ok'
+   },{
+     _id:4,
+     name:'NOk'
+   }]);
+   return article;
+ };
+
+ const user_Test = async () => {
+   const article= await User.create({
+     name:'admin',
+     password:'admin'
+   });
+   return article;
+ };
+
+ const addDevice_Test = async () => {
+   const device= await Device.create({
+     _id: 'TQSLM1',
+     name: 'TQSLM1',
+     _type: 'TQSLM',
+     vid: '1529',
+     pid: '8721',
+     state: 'stopped',
+     autoConnect: 1,
+     log: 1,
+     host: '192.168.30.10',
+     port: '7973',
+     enableLogging: true,
+     liveSNUpdate: true,
+     productionArea: 'Production',
+     samplesArea: 'Samples',
+     order: '59c8e7c2e65cf0193f7a7252',
+     orderName: 'test_order',
+   });
+   return device;
+ };
+*/
+exports.default = addLine;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DeviceSchema = new _mongoose2.default.Schema({
+  _id: String,
+  name: String,
+  type: String,
+  vid: String,
+  pid: String,
+  state: String,
+  autoConnect: Number,
+  log: Number,
+  host: String,
+  port: String,
+  enableLogging: Boolean,
+  liveSNUpdate: Boolean,
+  productionArea: String,
+  samplesArea: String,
+  order: String,
+  orderName: String
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('Device', DeviceSchema);
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LogSchema = new _mongoose2.default.Schema({
+  _id: String,
+  model: String,
+  id: String,
+  userId: String,
+  name: String,
+  err: String
+}, {
+  "timestamps": true
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('Log', LogSchema);
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(1);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CollectionSchema = new _mongoose2.default.Schema({
+  title: String,
+  author: String,
+  body: String,
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs: Number
+  }
+});
+
+// Compiles the schema into a model, opening (or creating, if
+// nonexistent) the 'Topic' collection in the MongoDB database
+/**
+ * Schema Definitions
+ *
+ */
+exports.default = _mongoose2.default.model('TestCollection', CollectionSchema);
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = loadModels;
+function loadModels() {
+  __webpack_require__(9);
+  __webpack_require__(13);
+  __webpack_require__(11);
+  __webpack_require__(28);
+  __webpack_require__(14);
+  __webpack_require__(15);
+  __webpack_require__(16);
+  //require('./TestCollection');
+  __webpack_require__(12);
+  __webpack_require__(10);
+}
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var middleware = function middleware(store) {
+  return function (next) {
+    return function (action) {
+
+      if (action.type != 'PROMISE') {
+        console.log('not promise_redux');
+        return next(action);
+      }
+      console.log('promise_redux');
+
+      var _action$actions = _slicedToArray(action.actions, 3),
+          startAction = _action$actions[0],
+          successAction = _action$actions[1],
+          failureAction = _action$actions[2];
+
+      store.dispatch({
+        type: startAction
+      });
+      action.payload.then(function (data) {
+        return store.dispatch({
+          type: successAction,
+          payload: data
+        });
+      }, function (error) {
+        return store.dispatch({
+          type: failureAction,
+          payload: error });
+      });
+    };
+  };
+};
+exports.default = middleware;
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4114,7 +5385,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(8);
+var _express = __webpack_require__(17);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -4122,37 +5393,37 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(48);
+var _server = __webpack_require__(59);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _routes = __webpack_require__(42);
+var _routes = __webpack_require__(54);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _index = __webpack_require__(40);
+var _index = __webpack_require__(52);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _redux = __webpack_require__(12);
+var _redux = __webpack_require__(20);
 
-var _reactRedux = __webpack_require__(11);
+var _reactRedux = __webpack_require__(19);
 
-var _list_actions = __webpack_require__(7);
+var _list_actions = __webpack_require__(8);
 
-var _reduxLogger = __webpack_require__(49);
+var _reduxLogger = __webpack_require__(60);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _controllers = __webpack_require__(16);
+var _controllers = __webpack_require__(25);
 
-var _initialData = __webpack_require__(19);
+var _initialData = __webpack_require__(31);
 
 var _initialData2 = _interopRequireDefault(_initialData);
 
-var _api = __webpack_require__(15);
+var _api = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4213,10 +5484,17 @@ router.get('/', function (req, res) {
                 payload: (0, _api.getIssues)()
             });
 
-            var finalState = store.getState();
-            console.log((0, _controllers.topics)());
+            store.subscribe(function () {
+                var finalState = store.getState();
+                res.status(200).send(renderFullPage(html, finalState));
+                //res.json(finalState);
+            });
+
+            //console.log(topics());
+            console.log("flag");
+            //  console.log(topics());
             //console.log(store.getState());
-            res.json(finalState);
+            ;
             //res.status(200).send(renderFullPage(html, finalState));
         } else {
             res.status(404).send('Not found');
@@ -4235,244 +5513,7 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getIssues = getIssues;
-exports.getData = getData;
-
-var _isomorphicFetch = __webpack_require__(45);
-
-var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-__webpack_require__(44).polyfill();
-function getIssues() {
-  return (0, _isomorphicFetch2.default)('http://pokeapi.co/api/v2/pokemon/')
-  //.then((res)=>{res.json()})
-  .then(function (response) {
-    if (response.status >= 400) {
-      throw new Error("Bad response from server");
-    }
-    return response.json();
-  });
-  /*  .then(function(response) {
-         return response;
-    });*/
-}
-function getData() {
-  return [{ mass: [1, 2, 4, 10000], text: 'wer' }, { peren: {}, ver: "ver" }, { bool: false }];
-}
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.topics = undefined;
-
-var _numbers = __webpack_require__(17);
-
-var _numbers2 = _interopRequireDefault(_numbers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.topics = _numbers2.default;
-exports.default = {
-  topics: _numbers2.default
-};
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _lodash = __webpack_require__(46);
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _TestCollection = __webpack_require__(9);
-
-var _TestCollection2 = _interopRequireDefault(_TestCollection);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * List All numbers (no)
- */
-var selectAll = function selectAll() {
-  //return new Promise((resolve)=>{
-  //console.log('start to selec All data in collection');
-  var data = _TestCollection2.default.find({});
-  return data;
-  //resolve(true);
-  //});
-};
-
-exports.default = selectAll;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = loadModels;
-function loadModels() {
-  //require('Articles');
-  __webpack_require__(9);
-  //require('Orders');
-  //require('Templates');
-}
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var middleware = function middleware(store) {
-  return function (next) {
-    return function (action) {
-
-      /*  if(action.then){
-      console.log("EEEEEE it is promise!!");
-        }
-      return next(action);*/
-      if (action.type != 'PROMISE') {
-        console.log('not promise');
-        return next(action);
-      }
-      console.log('promise');
-
-      var _action$actions = _slicedToArray(action.actions, 3),
-          startAction = _action$actions[0],
-          successAction = _action$actions[1],
-          failureAction = _action$actions[2];
-
-      store.dispatch({
-        type: startAction
-      });
-      /*  action.payload.then((data) =>{
-          if(data.then){
-            console.log(typeof data +` is promis`);
-          }else{
-            console.log(data);
-            console.log(typeof data +`  not fucking promis`);
-            const objData=data;
-            store.dispatch({
-                type: successAction,
-                payload: objData
-              });
-          }});*/
-      //console.log(stringJson);
-      /*  action.payload.then(
-        (data) => store.dispatch({
-          type:successAction,
-          payload:data
-        }),
-        (error) => store.dispatch({
-          type:failureAction,
-          payload:error
-        }));*/
-
-      action.payload.then(function (data) {
-
-        store.dispatch({
-          type: successAction,
-          payload: { per: 'data' }
-        });
-      });
-      //  cot data=action.payload.then((data)=>{return data});
-      //console.log(data);
-
-      /*  store.dispatch({
-          type: successAction,
-          payload: {per: 'data1'}
-        });*/
-      //action.payload.then((data)=>console.log(data));
-    };
-  };
-};
-
-exports.default = middleware;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _express = __webpack_require__(8);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _index = __webpack_require__(14);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _connect = __webpack_require__(13);
-
-var _connect2 = _interopRequireDefault(_connect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var connectToMongo = (0, _connect2.default)();
-var app = (0, _express2.default)();
-
-app.use('/bin', _express2.default.static('./bin'));
-app.use('/stylesheets', _express2.default.static('./public/stylesheets'));
-
-app.use('/', _index2.default);
-app.use('/view/*', _index2.default);
-app.use('/salex', _index2.default);
-app.use('/automenu', _index2.default);
-app.use('/store', _index2.default);
-app.use('/orders', _index2.default);
-
-app.listen(3000, function () {
-	console.log('Hello World listening on port 3000!');
-});
-
-/// comment
-
-/// comment___2
-
-
-///whith new stage-1
-
-/***/ }),
-/* 21 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4488,29 +5529,29 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _SBleft = __webpack_require__(4);
+var _SBleft = __webpack_require__(5);
 
 var _SBleft2 = _interopRequireDefault(_SBleft);
 
-var _SBright = __webpack_require__(5);
+var _SBright = __webpack_require__(6);
 
 var _SBright2 = _interopRequireDefault(_SBright);
 
-var _Navbar = __webpack_require__(3);
+var _Navbar = __webpack_require__(4);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Topbar = __webpack_require__(6);
+var _Topbar = __webpack_require__(7);
 
 var _Topbar2 = _interopRequireDefault(_Topbar);
 
-var _Infobar = __webpack_require__(2);
+var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Menuengine = __webpack_require__(26);
+var _Menuengine = __webpack_require__(38);
 
 var _Menuengine2 = _interopRequireDefault(_Menuengine);
 
@@ -4586,7 +5627,7 @@ var Automenu = function (_Component) {
 exports.default = Automenu;
 
 /***/ }),
-/* 22 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4602,29 +5643,29 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _SBleft = __webpack_require__(4);
+var _SBleft = __webpack_require__(5);
 
 var _SBleft2 = _interopRequireDefault(_SBleft);
 
-var _SBright = __webpack_require__(5);
+var _SBright = __webpack_require__(6);
 
 var _SBright2 = _interopRequireDefault(_SBright);
 
-var _Navbar = __webpack_require__(3);
+var _Navbar = __webpack_require__(4);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Topbar = __webpack_require__(6);
+var _Topbar = __webpack_require__(7);
 
 var _Topbar2 = _interopRequireDefault(_Topbar);
 
-var _Infobar = __webpack_require__(2);
+var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Lablengine = __webpack_require__(28);
+var _Lablengine = __webpack_require__(40);
 
 var _Lablengine2 = _interopRequireDefault(_Lablengine);
 
@@ -5164,7 +6205,7 @@ exports.default = Label;
 */
 
 /***/ }),
-/* 23 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5252,7 +6293,7 @@ var Logo = function (_Component) {
 exports.default = Logo;
 
 /***/ }),
-/* 24 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5268,61 +6309,61 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _SBleft = __webpack_require__(4);
+var _SBleft = __webpack_require__(5);
 
 var _SBleft2 = _interopRequireDefault(_SBleft);
 
-var _SBright = __webpack_require__(5);
+var _SBright = __webpack_require__(6);
 
 var _SBright2 = _interopRequireDefault(_SBright);
 
-var _Navbar = __webpack_require__(3);
+var _Navbar = __webpack_require__(4);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Topbar = __webpack_require__(6);
+var _Topbar = __webpack_require__(7);
 
 var _Topbar2 = _interopRequireDefault(_Topbar);
 
-var _Infobar = __webpack_require__(2);
+var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Topbox = __webpack_require__(36);
+var _Topbox = __webpack_require__(48);
 
 var _Topbox2 = _interopRequireDefault(_Topbox);
 
-var _Weekgraf = __webpack_require__(37);
+var _Weekgraf = __webpack_require__(49);
 
 var _Weekgraf2 = _interopRequireDefault(_Weekgraf);
 
-var _Temperature = __webpack_require__(35);
+var _Temperature = __webpack_require__(47);
 
 var _Temperature2 = _interopRequireDefault(_Temperature);
 
-var _Tabledata = __webpack_require__(34);
+var _Tabledata = __webpack_require__(46);
 
 var _Tabledata2 = _interopRequireDefault(_Tabledata);
 
-var _Maincarousel = __webpack_require__(33);
+var _Maincarousel = __webpack_require__(45);
 
 var _Maincarousel2 = _interopRequireDefault(_Maincarousel);
 
-var _Dashstatic = __webpack_require__(31);
+var _Dashstatic = __webpack_require__(43);
 
 var _Dashstatic2 = _interopRequireDefault(_Dashstatic);
 
-var _Contentbox = __webpack_require__(30);
+var _Contentbox = __webpack_require__(42);
 
 var _Contentbox2 = _interopRequireDefault(_Contentbox);
 
-var _Followers = __webpack_require__(32);
+var _Followers = __webpack_require__(44);
 
 var _Followers2 = _interopRequireDefault(_Followers);
 
-var _Activity = __webpack_require__(29);
+var _Activity = __webpack_require__(41);
 
 var _Activity2 = _interopRequireDefault(_Activity);
 
@@ -5446,7 +6487,7 @@ exports.default = Main;
 //////////////////////////////////////////////////
 
 /***/ }),
-/* 25 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5462,27 +6503,27 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SBleft = __webpack_require__(4);
+var _SBleft = __webpack_require__(5);
 
 var _SBleft2 = _interopRequireDefault(_SBleft);
 
-var _SBright = __webpack_require__(5);
+var _SBright = __webpack_require__(6);
 
 var _SBright2 = _interopRequireDefault(_SBright);
 
-var _Navbar = __webpack_require__(3);
+var _Navbar = __webpack_require__(4);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Topbar = __webpack_require__(6);
+var _Topbar = __webpack_require__(7);
 
 var _Topbar2 = _interopRequireDefault(_Topbar);
 
-var _Infobar = __webpack_require__(2);
+var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Neworder = __webpack_require__(38);
+var _Neworder = __webpack_require__(50);
 
 var _Neworder2 = _interopRequireDefault(_Neworder);
 
@@ -5565,7 +6606,7 @@ var Orders = function (_Component) {
 exports.default = Orders;
 
 /***/ }),
-/* 26 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5924,7 +6965,7 @@ exports.default = Menuengine;
   */
 
 /***/ }),
-/* 27 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5980,7 +7021,7 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 28 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6549,7 +7590,7 @@ var Lablengine = function (_Component) {
 exports.default = Lablengine;
 
 /***/ }),
-/* 29 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6729,7 +7770,7 @@ var Activity = function (_Component) {
 exports.default = Activity;
 
 /***/ }),
-/* 30 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6745,7 +7786,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactChartjs = __webpack_require__(47);
+var _reactChartjs = __webpack_require__(58);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6964,7 +8005,7 @@ export default Contentbox;
 */
 
 /***/ }),
-/* 31 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7095,7 +8136,7 @@ var Dashstatic = function (_Component) {
 exports.default = Dashstatic;
 
 /***/ }),
-/* 32 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7258,7 +8299,7 @@ var Followers = function (_Component) {
 exports.default = Followers;
 
 /***/ }),
-/* 33 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7600,7 +8641,7 @@ var Maincarousel = function (_Component) {
 exports.default = Maincarousel;
 
 /***/ }),
-/* 34 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7940,7 +8981,7 @@ var Tabledata = function (_Component) {
 exports.default = Tabledata;
 
 /***/ }),
-/* 35 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8058,7 +9099,7 @@ var Temperature = function (_Component) {
 exports.default = Temperature;
 
 /***/ }),
-/* 36 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8189,7 +9230,7 @@ var Topbox = function (_Component) {
 exports.default = Topbox;
 
 /***/ }),
-/* 37 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8252,7 +9293,7 @@ var Weekgraf = function (_Component) {
 exports.default = Weekgraf;
 
 /***/ }),
-/* 38 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8580,7 +9621,7 @@ exports.default = Neworder;
 */
 
 /***/ }),
-/* 39 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8596,11 +9637,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(11);
+var _reactRedux = __webpack_require__(19);
 
-var _list_actions = __webpack_require__(7);
+var _list_actions = __webpack_require__(8);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8687,7 +9728,7 @@ function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getListItem: _list_actions.getListItem })(ShowListItem);
 
 /***/ }),
-/* 40 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8697,9 +9738,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(12);
+var _redux = __webpack_require__(20);
 
-var _lists = __webpack_require__(41);
+var _lists = __webpack_require__(53);
 
 var _lists2 = _interopRequireDefault(_lists);
 
@@ -8712,7 +9753,7 @@ var rootReducer = (0, _redux.combineReducers)({
 exports.default = rootReducer;
 
 /***/ }),
-/* 41 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8748,7 +9789,7 @@ exports.default = function () {
     return state;
 };
 
-var _list_actions = __webpack_require__(7);
+var _list_actions = __webpack_require__(8);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -8757,7 +9798,7 @@ var ListItems = [{ name: 'Actions', description: 'Description for actions' }, { 
 var INITIAL_STATE = { all: ListItems, item: null, salex: null };
 
 /***/ }),
-/* 42 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8771,29 +9812,29 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(1);
+var _reactRouter = __webpack_require__(2);
 
-var _show_list_item = __webpack_require__(39);
+var _show_list_item = __webpack_require__(51);
 
 var _show_list_item2 = _interopRequireDefault(_show_list_item);
 
-var _header = __webpack_require__(27);
+var _header = __webpack_require__(39);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _Main = __webpack_require__(24);
+var _Main = __webpack_require__(36);
 
 var _Main2 = _interopRequireDefault(_Main);
 
-var _Label = __webpack_require__(22);
+var _Label = __webpack_require__(34);
 
 var _Label2 = _interopRequireDefault(_Label);
 
-var _Automenu = __webpack_require__(21);
+var _Automenu = __webpack_require__(33);
 
 var _Automenu2 = _interopRequireDefault(_Automenu);
 
-var _Orders = __webpack_require__(25);
+var _Orders = __webpack_require__(37);
 
 var _Orders2 = _interopRequireDefault(_Orders);
 
@@ -8815,46 +9856,48 @@ exports.default = _react2.default.createElement(
 );
 
 /***/ }),
-/* 43 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 44 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("es6-promise");
 
 /***/ }),
-/* 45 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
-/* 47 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-chartjs-2");
 
 /***/ }),
-/* 48 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 49 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-logger");
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(22);
+module.exports = __webpack_require__(21);
+
 
 /***/ })
 /******/ ]);

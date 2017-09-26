@@ -3,63 +3,63 @@ import mongoose from 'mongoose';
 //const {Schema}=mongoose;
 
 const ArticleSchema=new mongoose.Schema({
-  _id: String,
+//  _id: String,
   name : String,
   aggregation : {
-    0:{
+    "0":{
       displayName: String,
       childCount: Number,
     },
-    2:{
+    "2":{
       displayName: String,
       childCount: Number,
-    }
-    3:{
+    },
+    "3":{
       displayName: String,
       childCount: Number,
     }
   },
   gs1Data:{
-    0:{
-      10:{
+    "0":{
+      "10":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       },
-      17:{
+      "17":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       },
-      01:{
+      "01":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       },
     },
-    2:{
-      10:{
+    "2":{
+      "10":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       },
-      02:{
+      "02":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       },
-    }
-    3:{
-      10:{
+    },
+    "3":{
+      "10":{
         name: String,
-        displayName String,
-        type String,
-        writable Number,
+        displayName: String,
+        _type: String,
+        writable: Number,
       }
     }
   },

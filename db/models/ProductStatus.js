@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 //const {Schema}=mongoose;
 const StatusSchema=new mongoose.Schema({
-  _id: Number,
+  _id: String,
   name : String,
 });
 //hjgjhg

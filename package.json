@@ -4,7 +4,7 @@
   "description": "My firs project, desctop app with bootstrap",
   "main": "server.bundle.js",
   "scripts": {
-    "start": "webpack && node server.bundle.js --history-api-fallback",
+    "start": "webpack && node --inspect server.bundle.js --history-api-fallback",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

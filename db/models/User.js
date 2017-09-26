@@ -5,10 +5,10 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-  _id: String,
-  text: String,
+  //_id: String,
+  //text: String,
   name: String,
-  passsword: String,
+  password: String,
   token: String,
   createdAt: { type: Date, default: Date.now }
 });

@@ -77,10 +77,17 @@ export const ADD_ITEM = 'ADD_ITEM';
           payload: getIssues(),
       });
 
-			const finalState = store.getState();
-      console.log(topics());
+      store.subscribe(() => {
+        const finalState = store.getState();
+        res.status(200).send(renderFullPage(html, finalState));
+        //res.json(finalState);
+      });
+
+      //console.log(topics());
+        console.log("flag");
+    //  console.log(topics());
       //console.log(store.getState());
-      res.json(finalState);
+      ;
 			//res.status(200).send(renderFullPage(html, finalState));
 		} else {
 			res.status(404).send('Not found')
