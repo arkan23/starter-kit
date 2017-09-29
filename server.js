@@ -3,7 +3,7 @@ import router from './routes/index';
 import connect from './db/connect';
 const connectToMongo=connect();
 let app = express();
-import _ from 'lodash';
+//import _ from 'lodash';
 app.use('/bin', express.static('./bin'));
 app.use('/stylesheets', express.static('./public/stylesheets'));
 

@@ -1,6 +1,11 @@
 const middleware=store => next => action =>{
 
   if(action.type!='PROMISE'){
+
+  /*  store.dispatch({
+      type:successAction,
+      payload: action.payload
+    });*/
     console.log('not promise_redux');
     return next(action);
   }

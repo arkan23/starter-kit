@@ -4,7 +4,6 @@ export const ADD_ITEM = 'ADD_ITEM';
 
 export const PROMISE = 'PROMISE';
 
-
 export function selectItem(listItem) {
     return {
         type: ITEM_CLICKED,

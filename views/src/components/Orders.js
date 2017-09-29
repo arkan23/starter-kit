@@ -9,6 +9,7 @@ import Topbar from './Topbar';
 import Infobar from './Infobar';
 
 import Neworder from './orders/Neworder';
+import Orderlist from './orders/Orderlist';
 
 
 class Orders extends Component{
@@ -33,6 +34,7 @@ class Orders extends Component{
               <Infobar/>
               <div className="row">
                 <div className="col-md-12">
+                  <Orderlist/>
                   <Neworder/>
                 </div>
               </div>

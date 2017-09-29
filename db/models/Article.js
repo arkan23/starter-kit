@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const ArticleSchema=new mongoose.Schema({
   //_id: String,
-  name : String,
+  name : {type: String, ref: 'Order'},
   template : {type: String, ref: 'ArticleTemplate'},
   snsSources:{
       "0":{

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 60);
+/******/ 	return __webpack_require__(__webpack_require__.s = 59);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -164,7 +164,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(2);
 
-var _Logo = __webpack_require__(34);
+var _Logo = __webpack_require__(33);
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -3993,6 +3993,12 @@ function addItem(item) {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4012,7 +4018,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ArticleSchema = new _mongoose2.default.Schema({
   //_id: String,
-  name: String,
+  name: { type: String, ref: 'Order' },
   template: { type: String, ref: 'ArticleTemplate' },
   snsSources: {
     "0": {
@@ -4041,7 +4047,7 @@ var ArticleSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model("Articles", ArticleSchema);
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4129,7 +4135,7 @@ exports.default = _mongoose2.default.model("ArticleTemplate", ArticleSchema);
 //export default mongoose.model("Articletest",ArticleSchema);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4162,7 +4168,7 @@ var LineSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('Line', LineSchema);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4195,7 +4201,7 @@ var OrdersSchema = new _mongoose2.default.Schema({
   },
   created: { type: Date, default: Date.now },
   credentials: Number,
-  article: { type: String, ref: 'Article' },
+  article: { type: String, ref: 'Articles' },
   expireDate: Date,
   quantity: Number,
   batchNumber: String,
@@ -4247,7 +4253,7 @@ var OrdersSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('Order', OrdersSchema);
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4277,7 +4283,7 @@ var OrderSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('OrderStatus', OrderSchema);
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4315,7 +4321,7 @@ var ProductsSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('Product', ProductsSchema);
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4342,7 +4348,7 @@ exports.default = _mongoose2.default.model("Productstatus", StatusSchema);
 //export default mongoose.model("Articletest",ArticleSchema);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4376,22 +4382,16 @@ var UserSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("lodash");
 
 /***/ }),
 /* 20 */
@@ -4406,27 +4406,23 @@ module.exports = require("redux");
 "use strict";
 
 
-var _express = __webpack_require__(17);
+var _express = __webpack_require__(18);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _index = __webpack_require__(31);
+var _index = __webpack_require__(30);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _connect = __webpack_require__(24);
+var _connect = __webpack_require__(23);
 
 var _connect2 = _interopRequireDefault(_connect);
-
-var _lodash = __webpack_require__(18);
-
-var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var connectToMongo = (0, _connect2.default)();
 var app = (0, _express2.default)();
-
+//import _ from 'lodash';
 app.use('/bin', _express2.default.static('./bin'));
 app.use('/stylesheets', _express2.default.static('./public/stylesheets'));
 
@@ -4461,49 +4457,12 @@ module.exports = require("babel-polyfill");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getIssues = getIssues;
-exports.getData = getData;
-
-var _isomorphicFetch = __webpack_require__(56);
-
-var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-__webpack_require__(55).polyfill();
-function getIssues() {
-  return (0, _isomorphicFetch2.default)('http://pokeapi.co/api/v2/pokemon/')
-  //.then((res)=>{res.json()})
-  .then(function (response) {
-    if (response.status >= 400) {
-      throw new Error("Bad response from server");
-    }
-    return response.json();
-  });
-  /*  .then(function(response) {
-         return response;
-    });*/
-}
-function getData() {
-  return [{ mass: [1, 2, 4, 10000], text: 'wer' }, { peren: {}, ver: "ver" }, { bool: false }];
-}
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _mongoose = __webpack_require__(1);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _models = __webpack_require__(29);
+var _models = __webpack_require__(27);
 
 var _models2 = _interopRequireDefault(_models);
 
@@ -4514,7 +4473,7 @@ exports.default = function () {
   var connect = function connect() {
 
     return new Promise(function (resolve, reject) {
-      _mongoose2.default.Promise = __webpack_require__(54);
+      _mongoose2.default.Promise = __webpack_require__(55);
       _mongoose2.default.set('debug', false);
       var dbURI = 'mongodb://localhost:27017/salex';
 
@@ -4546,30 +4505,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.topics = undefined;
-
-var _numbers = __webpack_require__(26);
-
-var _numbers2 = _interopRequireDefault(_numbers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.topics = _numbers2.default;
-exports.default = {
-  topics: _numbers2.default
-};
-
-/***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4579,43 +4515,43 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _lodash = __webpack_require__(18);
+var _lodash = __webpack_require__(19);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _Product = __webpack_require__(14);
+var _Product = __webpack_require__(15);
 
 var _Product2 = _interopRequireDefault(_Product);
 
-var _Line = __webpack_require__(11);
+var _Line = __webpack_require__(12);
 
 var _Line2 = _interopRequireDefault(_Line);
 
-var _ArticleTemplate = __webpack_require__(10);
+var _ArticleTemplate = __webpack_require__(11);
 
 var _ArticleTemplate2 = _interopRequireDefault(_ArticleTemplate);
 
-var _Article = __webpack_require__(9);
+var _Article = __webpack_require__(10);
 
 var _Article2 = _interopRequireDefault(_Article);
 
-var _Order = __webpack_require__(12);
+var _Order = __webpack_require__(13);
 
 var _Order2 = _interopRequireDefault(_Order);
 
-var _OrderStatus = __webpack_require__(13);
+var _OrderStatus = __webpack_require__(14);
 
 var _OrderStatus2 = _interopRequireDefault(_OrderStatus);
 
-var _ProductStatus = __webpack_require__(15);
+var _ProductStatus = __webpack_require__(16);
 
 var _ProductStatus2 = _interopRequireDefault(_ProductStatus);
 
-var _User = __webpack_require__(16);
+var _User = __webpack_require__(17);
 
 var _User2 = _interopRequireDefault(_User);
 
-var _Device = __webpack_require__(27);
+var _Device = __webpack_require__(25);
 
 var _Device2 = _interopRequireDefault(_Device);
 
@@ -4812,7 +4748,15 @@ function randWDclassic(countNum, boxChild, palletChild, length, lengthp, lengthb
 /////////////////////////////////////////////////
 // ADD NEW data
 /////////////////////////////////////////////////
-
+/*const selectAll = () => {
+  let initialData={};
+  initialData.article =Article.find({});
+  initialData.line = Line.find({});
+  initialData.order = Order.find({});
+  console.log('select data');
+  //initialData[3] = await Product.find({});
+  return initialData;
+};*/
 var selectAll = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
     var initialData;
@@ -4820,30 +4764,28 @@ var selectAll = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            initialData = null;
+            initialData = {};
             _context.next = 3;
             return _Article2.default.find({});
 
           case 3:
-            initialData[0] = _context.sent;
+            initialData.article = _context.sent;
             _context.next = 6;
             return _Line2.default.find({});
 
           case 6:
-            initialData[1] = _context.sent;
+            initialData.line = _context.sent;
             _context.next = 9;
-            return _Order2.default.find({});
+            return _Order2.default.find({}).populate('article').populate('status');
 
           case 9:
-            initialData[2] = _context.sent;
-            _context.next = 12;
-            return _Product2.default.find({});
+            initialData.order = _context.sent;
 
-          case 12:
-            initialData[3] = _context.sent;
+            console.log('select data');
+            //initialData[3] = await Product.find({});
             return _context.abrupt("return", initialData);
 
-          case 14:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -4859,7 +4801,7 @@ var selectAll = function () {
 var generateNumbers = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    var date, broken, mongoNumbers, newNumbers, numbers, numbersData;
+    var date, broken, mongoNumbers, newNumbers, numbers, i;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -4867,64 +4809,71 @@ var generateNumbers = function () {
             date = new Date();
             broken = 0;
             _context2.next = 4;
-            return console.log('___date flag___1 ' + date.getSeconds() + '-' + date.getMilliseconds());
+            return console.log('___date flag___1 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
           case 4:
-            _context2.next = 6;
-            return _Product2.default.find({}, { _id: 1 });
-
-          case 6:
-            mongoNumbers = _context2.sent;
+            mongoNumbers = _Product2.default.find({}, { _id: 1 });
 
             date = new Date();
-            _context2.next = 10;
-            return console.log('___date flag___2 ' + date.getSeconds() + '-' + date.getMilliseconds());
+            _context2.next = 8;
+            return console.log('___date flag___2 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
-          case 10:
+          case 8:
+            newNumbers = randWDclassic(100000, 20, 4, 13, 18, 18, '0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'datamatrix', '123450', '123456');
+
+            date = new Date();
             _context2.next = 12;
-            return randWDclassic(100000, 20, 4, 13, 18, 18, '0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'datamatrix', '123450', '123456');
+            return console.log('___date flag___3 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
           case 12:
-            newNumbers = _context2.sent;
-
-            date = new Date();
-            _context2.next = 16;
-            return console.log('___date flag___3 ' + date.getSeconds() + '-' + date.getMilliseconds());
-
-          case 16:
-            _context2.next = 18;
+            _context2.next = 14;
             return _lodash2.default.intersectionBy(mongoNumbers, newNumbers, '_id');
 
-          case 18:
+          case 14:
             broken = _context2.sent;
-            numbers = _lodash2.default.unionBy(newNumbers, broken, '_id');
-            _context2.next = 22;
+            _context2.next = 17;
+            return _lodash2.default.unionBy(newNumbers, broken, '_id');
+
+          case 17:
+            numbers = _context2.sent;
+            _context2.next = 20;
             return console.log('broken numbers: ' + broken.length);
 
-          case 22:
-            _context2.next = 24;
+          case 20:
+            _context2.next = 22;
             return console.log('true numbers: ' + numbers.length);
 
-          case 24:
+          case 22:
             date = new Date();
-            _context2.next = 27;
-            return console.log('___date flag___4 ' + date.getSeconds() + '-' + date.getMilliseconds());
+            _context2.next = 25;
+            return console.log('___date flag___4 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
-          case 27:
+          case 25:
+            i = 0;
+
+          case 26:
+            if (!(i < numbers.length)) {
+              _context2.next = 32;
+              break;
+            }
+
             _context2.next = 29;
-            return _Product2.default.create(numbers);
+            return _Product2.default.create(numbers[i]);
 
           case 29:
-            numbersData = _context2.sent;
+            i++;
+            _context2.next = 26;
+            break;
 
+          case 32:
             date = new Date();
-            _context2.next = 33;
-            return console.log('___date flag___5 ' + date.getSeconds() + '-' + date.getMilliseconds());
+            _context2.next = 35;
+            return console.log('___date flag___5 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
-          case 33:
-            return _context2.abrupt("return", numbersData);
+          case 35:
+            return _context2.abrupt("return", true);
 
-          case 34:
+          case 36:
           case "end":
             return _context2.stop();
         }
@@ -5266,10 +5215,11 @@ var addArticleTemplate = function () {
    return device;
  };
 */
-exports.default = generateNumbers;
+
+exports.default = selectAll;
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5313,7 +5263,7 @@ var DeviceSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('Device', DeviceSchema);
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5349,7 +5299,7 @@ var LogSchema = new _mongoose2.default.Schema({
 exports.default = _mongoose2.default.model('Log', LogSchema);
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5360,20 +5310,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = loadModels;
 function loadModels() {
-  __webpack_require__(9);
-  __webpack_require__(13);
-  __webpack_require__(11);
-  __webpack_require__(28);
+  __webpack_require__(10);
   __webpack_require__(14);
+  __webpack_require__(12);
+  __webpack_require__(26);
   __webpack_require__(15);
   __webpack_require__(16);
+  __webpack_require__(17);
   //require('./TestCollection');
-  __webpack_require__(12);
-  __webpack_require__(10);
+  __webpack_require__(13);
+  __webpack_require__(11);
 }
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5390,6 +5340,11 @@ var middleware = function middleware(store) {
     return function (action) {
 
       if (action.type != 'PROMISE') {
+
+        /*  store.dispatch({
+            type:successAction,
+            payload: action.payload
+          });*/
         console.log('not promise_redux');
         return next(action);
       }
@@ -5419,7 +5374,42 @@ var middleware = function middleware(store) {
 exports.default = middleware;
 
 /***/ }),
-/* 31 */
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var middleware = function middleware(store) {
+  return function (next) {
+    return function (action) {
+
+      if (action.type == 'DB') {
+        var _action$actions = _slicedToArray(action.actions, 3),
+            startAction = _action$actions[0],
+            successAction = _action$actions[1],
+            failureAction = _action$actions[2];
+
+        store.dispatch({
+          type: successAction,
+          payload: action.payload
+        });
+      } else {
+        return next(action);
+      }
+    };
+  };
+};
+exports.default = middleware;
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5429,7 +5419,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _express = __webpack_require__(17);
+var _express = __webpack_require__(18);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -5437,13 +5427,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(58);
+var _server = __webpack_require__(57);
 
 var _server2 = _interopRequireDefault(_server);
 
 var _reactRouter = __webpack_require__(2);
 
-var _routes = __webpack_require__(53);
+var _routes = __webpack_require__(54);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -5453,98 +5443,145 @@ var _index2 = _interopRequireDefault(_index);
 
 var _redux = __webpack_require__(20);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(9);
 
 var _list_actions = __webpack_require__(8);
 
-var _reduxLogger = __webpack_require__(59);
+var _reduxLogger = __webpack_require__(58);
 
 var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-var _controllers = __webpack_require__(25);
+var _numbers = __webpack_require__(24);
 
-var _initialData = __webpack_require__(30);
+var _numbers2 = _interopRequireDefault(_numbers);
+
+var _initialData = __webpack_require__(28);
 
 var _initialData2 = _interopRequireDefault(_initialData);
 
-var _api = __webpack_require__(23);
+var _testMiddleware = __webpack_require__(29);
+
+var _testMiddleware2 = _interopRequireDefault(_testMiddleware);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+/*function getValue(){
+    var val;
+    initialDb().then(function(res){
+       val = res.val;
+    });
+    return val;
+}*/
+//import {getIssues,getData} from '../api';
+
 var router = _express2.default.Router();
 
-router.get('/', function (req, res) {
-    /*
-    Here we are first matching if the current url exists in the react router routes
-     */
-    (0, _reactRouter.match)({ routes: _routes2.default, location: req.originalUrl }, function (error, redirectLocation, renderProps) {
-        if (error) {
-            res.status(500).send(error.message);
-        } else if (redirectLocation) {
-            res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-        } else if (renderProps) {
+router.get('/', function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(req, res) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+            while (1) {
+                switch (_context.prev = _context.next) {
+                    case 0:
+                        /*
+                        Here we are first matching if the current url exists in the react router routes
+                         */
+                        (0, _reactRouter.match)({ routes: _routes2.default, location: req.originalUrl }, function (error, redirectLocation, renderProps) {
+                            if (error) {
+                                res.status(500).send(error.message);
+                            } else if (redirectLocation) {
+                                res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+                            } else if (renderProps) {
 
-            /*
-                   http://redux.js.org/docs/recipes/ServerRendering.html
-             */
+                                /*
+                                       http://redux.js.org/docs/recipes/ServerRendering.html
+                                 */
+                                //let data=0;
 
-            var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_initialData2.default)(_redux.createStore);
-            var store = createStoreWithMiddleware(_index2.default);
-            //const store = createStore(reducers);
+                                //initialDb().then((d)=>{data=d});
+                                //console.log(data);
 
-            var html = _server2.default.renderToString(_react2.default.createElement(
-                _reactRedux.Provider,
-                { store: store },
-                _react2.default.createElement(_reactRouter.RouterContext, renderProps)
-            ));
+                                var initialState = { salex: { initial: {} } };
 
-            /*
-            We can dispatch actions from server side as well. This can be very useful if you want
-            to inject some initial data into the app. For example, if you have some articles that
-            you have fetched from database and you want to load immediately after the user has loaded
-            the webpage, you can do so in here.
-            		Here we are inject an list item into our app. Normally once the user has loaded the webpage
-            we would make a request to the server and get the latest item list. But in the server we have
-            instant connection to a database (for example, if you have a mongoDB or MySQL database installed
-            in the server which contains all you items). So you can quickly fetch and inject it into the webpage.
-            		This will help SEO as well. If you load the webpage and make a request to the server to get all the
-            latest items/articles, by the time Google Search Engine may not see all the updated items/articles.
-            export const ADD_ITEM = 'ADD_ITEM';
-            But if you inject the latest items/articles before it reaches the user, the Search Engine will see the
-            item/article immediately.
-             */
+                                var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_initialData2.default, _testMiddleware2.default, _reduxLogger2.default)(_redux.createStore);
+                                var store = createStoreWithMiddleware(_index2.default, initialState);
+                                //const store = createStore(reducers);
 
-            /*   store.dispatch({
-               type: 'DDD',
-                  payload: {
-                         name: '11111',
-                            description: '22222222'
-                           }
-               });*/
 
-            store.dispatch({
-                type: 'PROMISE',
-                actions: ['INITIAL_LOADING', 'INITIAL_LOADED', 'INITIAL_FALURE_LOADED'],
-                payload: (0, _api.getIssues)()
-            });
+                                /*
+                                We can dispatch actions from server side as well. This can be very useful if you want
+                                to inject some initial data into the app. For example, if you have some articles that
+                                you have fetched from database and you want to load immediately after the user has loaded
+                                the webpage, you can do so in here.
+                                		Here we are inject an list item into our app. Normally once the user has loaded the webpage
+                                we would make a request to the server and get the latest item list. But in the server we have
+                                instant connection to a database (for example, if you have a mongoDB or MySQL database installed
+                                in the server which contains all you items). So you can quickly fetch and inject it into the webpage.
+                                		This will help SEO as well. If you load the webpage and make a request to the server to get all the
+                                latest items/articles, by the time Google Search Engine may not see all the updated items/articles.
+                                export const ADD_ITEM = 'ADD_ITEM';
+                                But if you inject the latest items/articles before it reaches the user, the Search Engine will see the
+                                item/article immediately.
+                                 */
 
-            store.subscribe(function () {
-                var finalState = store.getState();
-                res.status(200).send(renderFullPage(html, finalState));
-                //res.json(finalState);
-            });
-            //topics();
-            console.log((0, _controllers.topics)());
-            console.log("flag");
-            //topics();
-            //console.log(store.getState());
-            ;
-            //res.status(200).send(renderFullPage(html, finalState));
-        } else {
-            res.status(404).send('Not found');
-        }
-    });
-});
+                                /*   store.dispatch({
+                                   type: 'DDD',
+                                      payload: {
+                                             name: '11111',
+                                                description: '22222222'
+                                               }
+                                   });*/
+
+                                /* initialDb().then((data)=>{	store.dispatch({
+                                    type: 'DB',
+                                       actions: ['INITIAL_LOADING','INITIAL_LOADED','INITIAL_FALURE_LOADED'],
+                                       payload: data,
+                                   })});*/
+
+                                store.dispatch({
+                                    type: 'PROMISE',
+                                    actions: ['INITIAL_LOADING', 'INITIAL_LOADED', 'INITIAL_FALURE_LOADED'],
+                                    payload: (0, _numbers2.default)()
+                                });
+
+                                store.subscribe(function () {
+                                    var html = _server2.default.renderToString(_react2.default.createElement(
+                                        _reactRedux.Provider,
+                                        { store: store },
+                                        _react2.default.createElement(_reactRouter.RouterContext, renderProps)
+                                    ));
+                                    //console.log(finalState);
+                                    console.log('subscribe');
+                                    var finalState = store.getState();
+                                    //console.log(store.getState());
+                                    res.status(200).send(renderFullPage(html, finalState));
+                                    //res.json(finalState);
+                                });
+                                //topics();
+                                //console.log(topics());
+                                console.log("flag");
+                                //topics();
+                                //console.log(store.getState());
+                                ;
+                                //res.status(200).send(renderFullPage(html, finalState));
+                            } else {
+                                res.status(404).send('Not found');
+                            }
+                        });
+
+                    case 1:
+                    case 'end':
+                        return _context.stop();
+                }
+            }
+        }, _callee, undefined);
+    }));
+
+    return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+    };
+}());
 
 /*
 In this function, you can render you html part of the webpage. You can add some meta tags or Opern Graph tags
@@ -5557,7 +5594,7 @@ function renderFullPage(html, initialState) {
 exports.default = router;
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5595,7 +5632,7 @@ var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Menuengine = __webpack_require__(37);
+var _Menuengine = __webpack_require__(36);
 
 var _Menuengine2 = _interopRequireDefault(_Menuengine);
 
@@ -5671,7 +5708,7 @@ var Automenu = function (_Component) {
 exports.default = Automenu;
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5709,7 +5746,7 @@ var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Lablengine = __webpack_require__(39);
+var _Lablengine = __webpack_require__(38);
 
 var _Lablengine2 = _interopRequireDefault(_Lablengine);
 
@@ -6249,7 +6286,7 @@ exports.default = Label;
 */
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6337,7 +6374,7 @@ var Logo = function (_Component) {
 exports.default = Logo;
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6375,39 +6412,39 @@ var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Topbox = __webpack_require__(47);
+var _Topbox = __webpack_require__(46);
 
 var _Topbox2 = _interopRequireDefault(_Topbox);
 
-var _Weekgraf = __webpack_require__(48);
+var _Weekgraf = __webpack_require__(47);
 
 var _Weekgraf2 = _interopRequireDefault(_Weekgraf);
 
-var _Temperature = __webpack_require__(46);
+var _Temperature = __webpack_require__(45);
 
 var _Temperature2 = _interopRequireDefault(_Temperature);
 
-var _Tabledata = __webpack_require__(45);
+var _Tabledata = __webpack_require__(44);
 
 var _Tabledata2 = _interopRequireDefault(_Tabledata);
 
-var _Maincarousel = __webpack_require__(44);
+var _Maincarousel = __webpack_require__(43);
 
 var _Maincarousel2 = _interopRequireDefault(_Maincarousel);
 
-var _Dashstatic = __webpack_require__(42);
+var _Dashstatic = __webpack_require__(41);
 
 var _Dashstatic2 = _interopRequireDefault(_Dashstatic);
 
-var _Contentbox = __webpack_require__(41);
+var _Contentbox = __webpack_require__(40);
 
 var _Contentbox2 = _interopRequireDefault(_Contentbox);
 
-var _Followers = __webpack_require__(43);
+var _Followers = __webpack_require__(42);
 
 var _Followers2 = _interopRequireDefault(_Followers);
 
-var _Activity = __webpack_require__(40);
+var _Activity = __webpack_require__(39);
 
 var _Activity2 = _interopRequireDefault(_Activity);
 
@@ -6531,7 +6568,7 @@ exports.default = Main;
 //////////////////////////////////////////////////
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6567,9 +6604,13 @@ var _Infobar = __webpack_require__(3);
 
 var _Infobar2 = _interopRequireDefault(_Infobar);
 
-var _Neworder = __webpack_require__(49);
+var _Neworder = __webpack_require__(48);
 
 var _Neworder2 = _interopRequireDefault(_Neworder);
+
+var _Orderlist = __webpack_require__(49);
+
+var _Orderlist2 = _interopRequireDefault(_Orderlist);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6634,6 +6675,7 @@ var Orders = function (_Component) {
                 _react2.default.createElement(
                   'div',
                   { className: 'col-md-12' },
+                  _react2.default.createElement(_Orderlist2.default, null),
                   _react2.default.createElement(_Neworder2.default, null)
                 )
               )
@@ -6650,7 +6692,7 @@ var Orders = function (_Component) {
 exports.default = Orders;
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7009,7 +7051,7 @@ exports.default = Menuengine;
   */
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7065,7 +7107,7 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7634,7 +7676,7 @@ var Lablengine = function (_Component) {
 exports.default = Lablengine;
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7814,7 +7856,7 @@ var Activity = function (_Component) {
 exports.default = Activity;
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7830,7 +7872,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactChartjs = __webpack_require__(57);
+var _reactChartjs = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8049,7 +8091,7 @@ export default Contentbox;
 */
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8180,7 +8222,7 @@ var Dashstatic = function (_Component) {
 exports.default = Dashstatic;
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8343,7 +8385,7 @@ var Followers = function (_Component) {
 exports.default = Followers;
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8685,7 +8727,7 @@ var Maincarousel = function (_Component) {
 exports.default = Maincarousel;
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9025,7 +9067,7 @@ var Tabledata = function (_Component) {
 exports.default = Tabledata;
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9143,7 +9185,7 @@ var Temperature = function (_Component) {
 exports.default = Temperature;
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9274,7 +9316,7 @@ var Topbox = function (_Component) {
 exports.default = Topbox;
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9337,7 +9379,7 @@ var Weekgraf = function (_Component) {
 exports.default = Weekgraf;
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9665,6 +9707,180 @@ exports.default = Neworder;
 */
 
 /***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(9);
+
+var _lodash = __webpack_require__(19);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//import Sidebar from '../components/Sidebar';
+//import Mainbar from '../components/Mainbar';
+var Neworder = function (_Component) {
+  _inherits(Neworder, _Component);
+
+  function Neworder() {
+    _classCallCheck(this, Neworder);
+
+    return _possibleConstructorReturn(this, (Neworder.__proto__ || Object.getPrototypeOf(Neworder)).apply(this, arguments));
+  }
+
+  _createClass(Neworder, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
+    //console.log('___+++++++++++++___');
+    //  console.log(this.props.orders.initial);
+    //console.log(typeof this.props.orders.initial);
+    //this.props.orders.initial.then((data)=>{data.order.map((d)=>{console.log('___@___')})});
+
+
+    //    {this.props.orders.map((d)=><tr><td>#</td><td></td><td>Row 2</td><td>Row 3</td><td>Row 3</td><td>Row 3</td></tr>)}<tr><td>#</td><td></td><td>Row 2</td><td>Row 3</td><td>Row 3</td><td>Row 3</td></tr>
+
+  }, {
+    key: 'render',
+    value: function render() {
+      console.log('________________');
+      //  console.log(this.props.orders.initial);
+      //const mass=this.props.orders.order;   {mass.map((p)=><tr><th>Статус</th><th>Артикул</th><th>Серия</th><th>Количество</th><th>Название</th><th>Создан</th></tr>)}
+      return _react2.default.createElement(
+        'div',
+        { className: 'panel' },
+        _react2.default.createElement(
+          'div',
+          { className: 'panel-body' },
+          _react2.default.createElement(
+            'h3',
+            { className: 'title-hero' },
+            'Order list'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'example-box-wrapper' },
+            _react2.default.createElement(
+              'table',
+              { className: 'table table-hover' },
+              _react2.default.createElement(
+                'thead',
+                null,
+                _react2.default.createElement(
+                  'tr',
+                  null,
+                  _react2.default.createElement('th', null),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u0421\u0442\u0430\u0442\u0443\u0441'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u0410\u0440\u0442\u0438\u043A\u0443\u043B'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u0421\u0435\u0440\u0438\u044F'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                  ),
+                  _react2.default.createElement(
+                    'th',
+                    null,
+                    '\u0421\u043E\u0437\u0434\u0430\u043D'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'tbody',
+                null,
+                this.props.orders.initial.order.map(function (data, i) {
+                  return _react2.default.createElement(
+                    'tr',
+                    { key: i },
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      _react2.default.createElement('i', { className: 'fa fa-address-card', 'aria-hidden': 'true' })
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.status.name
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.article.name
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.batchNumber
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.quantity
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.name
+                    ),
+                    _react2.default.createElement(
+                      'td',
+                      null,
+                      data.created.toDateString()
+                    )
+                  );
+                })
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Neworder;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return { 'orders': state.salex };
+})(Neworder);
+
+/***/ }),
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9681,7 +9897,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(19);
+var _reactRedux = __webpack_require__(9);
 
 var _list_actions = __webpack_require__(8);
 
@@ -9788,10 +10004,15 @@ var _lists = __webpack_require__(52);
 
 var _lists2 = _interopRequireDefault(_lists);
 
+var _salex = __webpack_require__(53);
+
+var _salex2 = _interopRequireDefault(_salex);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-    lists: _lists2.default
+    lists: _lists2.default,
+    salex: _salex2.default
 });
 
 exports.default = rootReducer;
@@ -9810,7 +10031,7 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var action = arguments[1];
 
     switch (action.type) {
@@ -9827,8 +10048,8 @@ exports.default = function () {
                 case 'Reducers':
                     return _extends({}, state, { item: ListItems[2] });
             }
-        case 'INITIAL_LOADED':
-            return _extends({}, state, { salex: action.payload });
+        /*  case 'INITIAL_LOADED':
+              return {...state, salex: action.payload };*/
     }
     return state;
 };
@@ -9839,10 +10060,34 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var ListItems = [{ name: 'Actions', description: 'Description for actions' }, { name: 'Containers', description: 'Description for containers' }, { name: 'Reducers', description: 'Description for reducer' }];
 
-var INITIAL_STATE = { all: ListItems, item: null, salex: null };
+var INITIAL_STATE = { all: ListItems, item: null, salex: { order: 1, line: 1, article: 1 } };
 
 /***/ }),
 /* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'INITIAL_LOADED':
+            return _extends({}, state, { initial: action.payload });
+    }
+    return state;
+};
+
+/***/ }),
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9862,23 +10107,23 @@ var _show_list_item = __webpack_require__(50);
 
 var _show_list_item2 = _interopRequireDefault(_show_list_item);
 
-var _header = __webpack_require__(38);
+var _header = __webpack_require__(37);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _Main = __webpack_require__(35);
+var _Main = __webpack_require__(34);
 
 var _Main2 = _interopRequireDefault(_Main);
 
-var _Label = __webpack_require__(33);
+var _Label = __webpack_require__(32);
 
 var _Label2 = _interopRequireDefault(_Label);
 
-var _Automenu = __webpack_require__(32);
+var _Automenu = __webpack_require__(31);
 
 var _Automenu2 = _interopRequireDefault(_Automenu);
 
-var _Orders = __webpack_require__(36);
+var _Orders = __webpack_require__(35);
 
 var _Orders2 = _interopRequireDefault(_Orders);
 
@@ -9900,43 +10145,31 @@ exports.default = _react2.default.createElement(
 );
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = require("bluebird");
 
 /***/ }),
-/* 55 */
-/***/ (function(module, exports) {
-
-module.exports = require("es6-promise");
-
-/***/ }),
 /* 56 */
-/***/ (function(module, exports) {
-
-module.exports = require("isomorphic-fetch");
-
-/***/ }),
-/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-chartjs-2");
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-logger");
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(22);

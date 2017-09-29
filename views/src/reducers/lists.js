@@ -6,9 +6,9 @@ let ListItems = [
     { name: 'Reducers', description: 'Description for reducer' }
 ];
 
-const INITIAL_STATE = { all: ListItems, item: null, salex: null};
+const INITIAL_STATE = { all: ListItems, item: null, salex: {order:1,line:1,article:1}};
 
-export default function(state = INITIAL_STATE, action) {
+export default function(state ={}, action) {
     switch(action.type) {
         case ITEM_CLICKED:
             return { ...state, item: action.payload };
@@ -23,8 +23,8 @@ export default function(state = INITIAL_STATE, action) {
                 case 'Reducers':
                     return {...state, item: ListItems[2] };
             }
-        case 'INITIAL_LOADED':
-            return {...state, salex: action.payload };
+      /*  case 'INITIAL_LOADED':
+            return {...state, salex: action.payload };*/
     }
     return state;
 }

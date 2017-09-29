@@ -21,7 +21,7 @@ const OrdersSchema = new mongoose.Schema({
   },
   created: { type: Date, default: Date.now },
   credentials: Number,
-  article: {type: String, ref: 'Article'},
+  article: {type: String, ref: 'Articles'},
   expireDate: Date,
   quantity: Number,
   batchNumber: String,

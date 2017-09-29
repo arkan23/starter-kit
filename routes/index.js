@@ -9,16 +9,23 @@ import { Provider } from 'react-redux';
 import { ADD_ITEM, PROMISE } from '../views/src/actions/list_actions';
 import logger from 'redux-logger';
 
-import {topics} from '../db/controllers';
+import initialDb from '../db/controllers/numbers';
 
 import initialDataMiddleware from '../middlewares/initialData';
+import testM from '../middlewares/testMiddleware';
 
-
-import {getIssues,getData} from '../api';
+/*function getValue(){
+    var val;
+    initialDb().then(function(res){
+       val = res.val;
+    });
+    return val;
+}*/
+//import {getIssues,getData} from '../api';
 
 let router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     /*
     Here we are first matching if the current url exists in the react router routes
      */
@@ -32,16 +39,18 @@ router.get('/', (req, res) => {
 		    /*
              http://redux.js.org/docs/recipes/ServerRendering.html
 		     */
+      //let data=0;
 
-      const createStoreWithMiddleware=applyMiddleware(initialDataMiddleware)(createStore);
-      const store = createStoreWithMiddleware(reducers);
+      //initialDb().then((d)=>{data=d});
+      //console.log(data);
+
+      let initialState={salex:{initial:{}}};
+
+      const createStoreWithMiddleware=applyMiddleware(initialDataMiddleware,testM,logger)(createStore);
+      const store = createStoreWithMiddleware(reducers,initialState);
       //const store = createStore(reducers);
 
-			const html = ReactDOMServer.renderToString(
-				<Provider store={store}>
-					<RouterContext {...renderProps} />
-				</Provider>
-			);
+
 
 			/*
 			We can dispatch actions from server side as well. This can be very useful if you want
@@ -69,21 +78,36 @@ export const ADD_ITEM = 'ADD_ITEM';
                    }
        });*/
 
+      /* initialDb().then((data)=>{	store.dispatch({
+   			    type: 'DB',
+             actions: ['INITIAL_LOADING','INITIAL_LOADED','INITIAL_FALURE_LOADED'],
+             payload: data,
+         })});*/
+
+
 
 
 			store.dispatch({
 			    type: 'PROMISE',
           actions: ['INITIAL_LOADING','INITIAL_LOADED','INITIAL_FALURE_LOADED'],
-          payload: getIssues(),
+          payload: initialDb(),
       });
 
       store.subscribe(() => {
+        const html = ReactDOMServer.renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
+        //console.log(finalState);
+        console.log('subscribe');
         const finalState = store.getState();
+        //console.log(store.getState());
         res.status(200).send(renderFullPage(html, finalState));
         //res.json(finalState);
       });
       //topics();
-      console.log(topics());
+      //console.log(topics());
         console.log("flag");
      //topics();
       //console.log(store.getState());

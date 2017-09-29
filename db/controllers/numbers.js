@@ -190,13 +190,22 @@ import Device from "../models/Device";
 /////////////////////////////////////////////////
 // ADD NEW data
 /////////////////////////////////////////////////
-
+/*const selectAll = () => {
+  let initialData={};
+  initialData.article =Article.find({});
+  initialData.line = Line.find({});
+  initialData.order = Order.find({});
+  console.log('select data');
+  //initialData[3] = await Product.find({});
+  return initialData;
+};*/
  const selectAll = async () => {
-   let initialData=null;
-   initialData[0] = await Article.find({});
-   initialData[1] = await Line.find({});
-   initialData[2] = await Order.find({});
-   initialData[3] = await Product.find({});
+   let initialData={};
+   initialData.article = await Article.find({});
+   initialData.line = await Line.find({});
+   initialData.order = await Order.find({}).populate('article').populate('status');
+   console.log('select data');
+   //initialData[3] = await Product.find({});
    return initialData;
  };
 
@@ -205,25 +214,27 @@ import Device from "../models/Device";
  const generateNumbers=async (options=true)=>{
    let date=new Date;
    let broken=0;
-   await console.log('___date flag___1 '+date.getSeconds()+'-'+date.getMilliseconds());
-   const mongoNumbers=await Product.find({},{_id:1});
+   await console.log('___date flag___1 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
+   const mongoNumbers= Product.find({},{_id:1});
     date=new Date;
-   await console.log('___date flag___2 '+date.getSeconds()+'-'+date.getMilliseconds());
-   const newNumbers=await randWDclassic(100000,20,4,13,18,18,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456')
+   await console.log('___date flag___2 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
+   const newNumbers=randWDclassic(100000,20,4,13,18,18,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456')
     date=new Date;
-   await console.log('___date flag___3 '+date.getSeconds()+'-'+date.getMilliseconds());
+   await console.log('___date flag___3 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
    //broken=await _.intersectionBy(newNumbers,mongoNumbers,'_id') ;
    broken=await _.intersectionBy(mongoNumbers,newNumbers,'_id') ;
-   let numbers=_.unionBy(newNumbers,broken,'_id');
+   let numbers=await _.unionBy(newNumbers,broken,'_id');
    await console.log('broken numbers: '+broken.length);
    await console.log('true numbers: '+numbers.length);
     date=new Date;
-   await console.log('___date flag___4 '+date.getSeconds()+'-'+date.getMilliseconds());
+   await console.log('___date flag___4 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
+   for(let i=0;i<numbers.length;i++){
+     await Product.create(numbers[i]);
 
-   const numbersData= await Product.create(numbers);
-    date=new Date;
-   await console.log('___date flag___5 '+date.getSeconds()+'-'+date.getMilliseconds());
-   return numbersData;
+   }
+     date=new Date;
+   await console.log('___date flag___5 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
+   return true;
  }
 
 
@@ -488,4 +499,5 @@ import Device from "../models/Device";
    return device;
  };
 */
- export default generateNumbers;
+
+ export default selectAll;
