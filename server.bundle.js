@@ -3953,6 +3953,12 @@ exports.default = Topbar;
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3990,12 +3996,6 @@ function addItem(item) {
         payload: item
     };
 }
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
 
 /***/ }),
 /* 10 */
@@ -4801,7 +4801,7 @@ var selectAll = function () {
 var generateNumbers = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-    var date, broken, mongoNumbers, newNumbers, numbers, i;
+    var date, broken, mongoNumbers, newNumbers, numbers, newCount, i;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -4819,7 +4819,7 @@ var generateNumbers = function () {
             return console.log('___date flag___2 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
           case 8:
-            newNumbers = randWDclassic(100000, 20, 4, 13, 18, 18, '0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'datamatrix', '123450', '123456');
+            newNumbers = randWDclassic(30000, 20, 4, 13, 18, 18, '0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'abcdefghijklmnopqrstuvwxyz0123456789', 'datamatrix', '123450', '123456');
 
             date = new Date();
             _context2.next = 12;
@@ -4844,36 +4844,35 @@ var generateNumbers = function () {
             return console.log('true numbers: ' + numbers.length);
 
           case 22:
+            _context2.next = 24;
+            return numbers.length;
+
+          case 24:
+            _context2.t0 = _context2.sent;
+            newCount = _context2.t0 / 1000;
+            _context2.next = 28;
+            return _lodash2.default.chunk(numbers, 1000);
+
+          case 28:
+            numbers = _context2.sent;
+
+
             date = new Date();
-            _context2.next = 25;
+            _context2.next = 32;
             return console.log('___date flag___4 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
-          case 25:
-            i = 0;
-
-          case 26:
-            if (!(i < numbers.length)) {
-              _context2.next = 32;
-              break;
-            }
-
-            _context2.next = 29;
-            return _Product2.default.create(numbers[i]);
-
-          case 29:
-            i++;
-            _context2.next = 26;
-            break;
-
           case 32:
+            for (i = 0; i < newCount; i++) {
+              _Product2.default.create(numbers[i]);
+            }
             date = new Date();
-            _context2.next = 35;
+            _context2.next = 36;
             return console.log('___date flag___5 ' + date.getMinutes() + '-' + date.getSeconds() + '-' + date.getMilliseconds());
 
-          case 35:
+          case 36:
             return _context2.abrupt("return", true);
 
-          case 36:
+          case 37:
           case "end":
             return _context2.stop();
         }
@@ -5443,9 +5442,9 @@ var _index2 = _interopRequireDefault(_index);
 
 var _redux = __webpack_require__(20);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(8);
 
-var _list_actions = __webpack_require__(8);
+var _list_actions = __webpack_require__(9);
 
 var _reduxLogger = __webpack_require__(58);
 
@@ -9395,6 +9394,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(8);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -9415,190 +9416,338 @@ var Neworder = function (_Component) {
   }
 
   _createClass(Neworder, [{
-    key: "render",
+    key: 'render',
     value: function render() {
+      var war = this.props.initial;
       return _react2.default.createElement(
-        "div",
-        { className: "panel" },
+        'div',
+        { className: 'panel' },
         _react2.default.createElement(
-          "div",
-          { className: "panel-body" },
+          'div',
+          { className: 'panel-body' },
           _react2.default.createElement(
-            "h3",
-            { className: "title-hero" },
-            "New order"
+            'h3',
+            { className: 'title-hero' },
+            'New order'
           ),
           _react2.default.createElement(
-            "div",
-            { className: "example-box-wrapper" },
+            'div',
+            { className: 'example-box-wrapper' },
             _react2.default.createElement(
-              "div",
-              { className: "row" },
+              'div',
+              { className: 'row' },
               _react2.default.createElement(
-                "div",
-                { className: "col-md-12" },
+                'div',
+                { className: 'col-md-12' },
                 _react2.default.createElement(
-                  "button",
-                  { type: "button", className: "btn btn-info mrg20B collapsed", "data-toggle": "collapse", "data-target": "#demo-2" },
-                  "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0437\u0430\u043A\u0430\u0437"
+                  'button',
+                  { type: 'button', className: 'btn btn-info mrg20B collapsed', 'data-toggle': 'collapse', 'data-target': '#demo-2' },
+                  '\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0437\u0430\u043A\u0430\u0437'
                 ),
                 _react2.default.createElement(
-                  "div",
-                  { id: "demo-2", className: "collapse" },
+                  'div',
+                  { id: 'demo-2', className: 'collapse' },
                   _react2.default.createElement(
-                    "div",
-                    { className: "panel" },
+                    'div',
+                    { className: 'panel' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "panel-heading" },
+                      'div',
+                      { className: 'panel-heading' },
                       _react2.default.createElement(
-                        "h3",
-                        { className: "panel-title" },
-                        "Panel title"
+                        'h3',
+                        { className: 'panel-title' },
+                        'Panel title'
                       )
                     ),
                     _react2.default.createElement(
-                      "div",
-                      { className: "panel-body" },
+                      'div',
+                      { className: 'panel-body' },
                       _react2.default.createElement(
-                        "form",
-                        { className: "form-horizontal bordered-row" },
+                        'form',
+                        { className: 'form-horizontal bordered-row' },
                         _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
+                          'div',
+                          { className: 'form-group' },
                           _react2.default.createElement(
-                            "label",
-                            { className: "col-sm-1 control-label" },
-                            "\u0410\u0440\u0442\u0438\u043A\u0443\u043B"
+                            'label',
+                            { className: 'col-sm-2 control-label' },
+                            '\u0410\u0440\u0442\u0438\u043A\u0443\u043B'
                           ),
                           _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
+                            'div',
+                            { className: 'col-sm-9' },
                             _react2.default.createElement(
-                              "select",
-                              { name: "", className: "custom-select" },
+                              'select',
+                              { name: '', className: 'custom-select' },
+                              _react2.default.createElement('option', null),
+                              war.article.map(function (data, i) {
+                                return _react2.default.createElement(
+                                  'option',
+                                  { key: i },
+                                  data.name
+                                );
+                              })
+                            )
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement(
+                            'label',
+                            { className: 'col-sm-2 control-label' },
+                            '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E'
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            _react2.default.createElement('input', { type: 'text', name: '', className: 'form-control spinner-input' })
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement(
+                            'label',
+                            { className: 'col-sm-2 control-label' },
+                            '\u041D\u043E\u043C\u0435\u0440 \u043F\u0430\u0440\u0442\u0438\u0438'
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: '', placeholder: 'Example placeholder...' })
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement(
+                            'label',
+                            { htmlFor: '', className: 'col-sm-2 control-label' },
+                            '\u0421\u0440\u043E\u043A \u0433\u043E\u0434\u043D\u043E\u0441\u0442\u0438 (\u0434\u0430\u0442\u0430)'
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            _react2.default.createElement(
+                              'div',
+                              { className: 'input-prepend input-group' },
                               _react2.default.createElement(
-                                "option",
-                                null,
-                                "Option 1"
+                                'span',
+                                { className: 'add-on input-group-addon' },
+                                _react2.default.createElement('i', { className: 'glyph-icon icon-calendar' })
                               ),
+                              _react2.default.createElement('input', { type: 'text', className: 'bootstrap-datepicker form-control', 'data-date-format': 'mm/dd/yy' })
+                            )
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement(
+                            'label',
+                            { className: 'col-sm-2 control-label' },
+                            '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            _react2.default.createElement('input', { type: 'text', className: 'form-control', id: '', placeholder: 'Example placeholder...' })
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement(
+                            'label',
+                            { className: 'col-sm-2 control-label' },
+                            '\u041F\u0440\u0438\u043C\u0435\u0447\u0430\u043D\u0438\u0435'
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-9' },
+                            _react2.default.createElement('textarea', { name: '', id: '', className: 'form-control' })
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'form-group' },
+                          _react2.default.createElement('div', { className: 'col-sm-2 control-label' }),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-2' },
+                            _react2.default.createElement(
+                              'button',
+                              { className: 'btn btn-success' },
+                              '\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C'
+                            )
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'col-sm-2' },
+                            _react2.default.createElement(
+                              'button',
+                              { className: 'btn btn-danger' },
+                              '\u0417\u0430\u043A\u0440\u044B\u0442\u044C'
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'panel' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'panel-heading' },
+                      _react2.default.createElement(
+                        'h3',
+                        { className: 'panel-title' },
+                        'Panel title'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'panel-body' },
+                      _react2.default.createElement(
+                        'ul',
+                        { className: 'nav nav-tabs' },
+                        _react2.default.createElement(
+                          'li',
+                          { className: 'nav-item' },
+                          _react2.default.createElement(
+                            'a',
+                            { className: 'nav-link', href: '#menu1', 'data-toggle': 'tab' },
+                            _react2.default.createElement('i', { className: 'glyph-icon tooltip-button icon-barcode', title: '.icon-barcode' }),
+                            '\u0421\u0435\u0440\u0438\u0439\u043D\u044B\u0435 \u043D\u043E\u043C\u0435\u0440\u0430'
+                          )
+                        ),
+                        _react2.default.createElement(
+                          'li',
+                          { className: 'nav-item' },
+                          _react2.default.createElement(
+                            'a',
+                            { className: 'nav-link', href: '#menu2', 'data-toggle': 'tab' },
+                            _react2.default.createElement('i', { className: 'glyph-icon tooltip-button icon-bars', title: '.icon-bars' }),
+                            '\u0414\u0430\u043D\u043D\u044B\u0435 \u0437\u0430\u043A\u0430\u0437\u0430'
+                          )
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'tab-content' },
+                        _react2.default.createElement(
+                          'div',
+                          { id: 'menu1', className: 'tab-pane fade' },
+                          _react2.default.createElement(
+                            'table',
+                            { className: 'table table-striped' },
+                            _react2.default.createElement(
+                              'tbody',
+                              null,
                               _react2.default.createElement(
-                                "option",
+                                'tr',
                                 null,
-                                "Option 2"
-                              ),
-                              _react2.default.createElement(
-                                "option",
-                                null,
-                                "Option 3"
-                              ),
-                              _react2.default.createElement(
-                                "option",
-                                null,
-                                "Option 4"
+                                _react2.default.createElement('td', null),
+                                _react2.default.createElement(
+                                  'td',
+                                  null,
+                                  _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    '\u0412\u0441\u0435\u0433\u043E'
+                                  )
+                                ),
+                                _react2.default.createElement(
+                                  'td',
+                                  null,
+                                  _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    '\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u043D\u043E'
+                                  )
+                                ),
+                                _react2.default.createElement(
+                                  'td',
+                                  null,
+                                  _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    '\u041E\u0441\u0442\u0430\u043B\u043E\u0441\u044C'
+                                  )
+                                ),
+                                _react2.default.createElement(
+                                  'td',
+                                  null,
+                                  _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    '\u0413\u043E\u0434\u0435\u043D'
+                                  )
+                                ),
+                                _react2.default.createElement(
+                                  'td',
+                                  null,
+                                  _react2.default.createElement(
+                                    'b',
+                                    null,
+                                    '\u0411\u0440\u0430\u043A'
+                                  )
+                                ),
+                                _react2.default.createElement('td', null),
+                                _react2.default.createElement('td', null)
                               )
                             )
                           )
                         ),
                         _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
+                          'div',
+                          { id: 'menu2', className: 'tab-pane fade' },
                           _react2.default.createElement(
-                            "label",
-                            { className: "col-sm-1 control-label" },
-                            "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E"
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
-                            _react2.default.createElement("input", { type: "text", name: "", className: "form-control spinner-input" })
-                          )
-                        ),
-                        _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
-                          _react2.default.createElement(
-                            "label",
-                            { className: "col-sm-1 control-label" },
-                            "\u041D\u043E\u043C\u0435\u0440 \u043F\u0430\u0440\u0442\u0438\u0438"
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
-                            _react2.default.createElement("input", { type: "text", className: "form-control", id: "", placeholder: "Example placeholder..." })
-                          )
-                        ),
-                        _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
-                          _react2.default.createElement(
-                            "label",
-                            { htmlFor: "", className: "col-sm-1 control-label" },
-                            "\u0421\u0440\u043E\u043A \u0433\u043E\u0434\u043D\u043E\u0441\u0442\u0438 (\u0434\u0430\u0442\u0430)"
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
+                            'form',
+                            { className: 'form-horizontal bordered-row' },
                             _react2.default.createElement(
-                              "div",
-                              { className: "input-prepend input-group" },
+                              'div',
+                              { className: 'form-group' },
                               _react2.default.createElement(
-                                "span",
-                                { className: "add-on input-group-addon" },
-                                _react2.default.createElement("i", { className: "glyph-icon icon-calendar" })
+                                'label',
+                                { className: 'col-sm-2 control-label' },
+                                '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E'
                               ),
-                              _react2.default.createElement("input", { type: "text", className: "bootstrap-datepicker form-control", "data-date-format": "mm/dd/yy" })
-                            )
-                          )
-                        ),
-                        _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
-                          _react2.default.createElement(
-                            "label",
-                            { className: "col-sm-1 control-label" },
-                            "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
-                            _react2.default.createElement("input", { type: "text", className: "form-control", id: "", placeholder: "Example placeholder..." })
-                          )
-                        ),
-                        _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
-                          _react2.default.createElement(
-                            "label",
-                            { className: "col-sm-1 control-label" },
-                            "\u041F\u0440\u0438\u043C\u0435\u0447\u0430\u043D\u0438\u0435"
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-9" },
-                            _react2.default.createElement("textarea", { name: "", id: "", className: "form-control" })
-                          )
-                        ),
-                        _react2.default.createElement(
-                          "div",
-                          { className: "form-group" },
-                          _react2.default.createElement("div", { className: "col-sm-1 control-label" }),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-1" },
+                              _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-9' },
+                                _react2.default.createElement('input', { type: 'text', name: '', value: '', className: 'form-control spinner-input' })
+                              )
+                            ),
                             _react2.default.createElement(
-                              "button",
-                              { className: "btn btn-success" },
-                              "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
-                            )
-                          ),
-                          _react2.default.createElement(
-                            "div",
-                            { className: "col-sm-1" },
+                              'div',
+                              { className: 'form-group' },
+                              _react2.default.createElement(
+                                'label',
+                                { className: 'col-sm-2 control-label' },
+                                '\u041D\u043E\u043C\u0435\u0440 \u043F\u0430\u0440\u0442\u0438\u0438'
+                              ),
+                              _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-9' },
+                                _react2.default.createElement('input', { type: 'text', className: 'form-control', value: '', id: '', placeholder: 'Example placeholder...' })
+                              )
+                            ),
                             _react2.default.createElement(
-                              "button",
-                              { className: "btn btn-danger" },
-                              "\u0417\u0430\u043A\u0440\u044B\u0442\u044C"
+                              'div',
+                              { className: 'form-group' },
+                              _react2.default.createElement(
+                                'label',
+                                { className: 'col-sm-2 control-label' },
+                                '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435'
+                              ),
+                              _react2.default.createElement(
+                                'div',
+                                { className: 'col-sm-9' },
+                                _react2.default.createElement('input', { type: 'text', className: 'form-control', id: '', placeholder: 'Example placeholder...' })
+                              )
                             )
                           )
                         )
@@ -9617,7 +9766,9 @@ var Neworder = function (_Component) {
   return Neworder;
 }(_react.Component);
 
-exports.default = Neworder;
+exports.default = (0, _reactRedux.connect)(function (state) {
+  return { 'initial': state.salex.initial };
+})(Neworder);
 
 /*
 
@@ -9723,7 +9874,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(8);
 
 var _lodash = __webpack_require__(19);
 
@@ -9739,32 +9890,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 //import Sidebar from '../components/Sidebar';
 //import Mainbar from '../components/Mainbar';
-var Neworder = function (_Component) {
-  _inherits(Neworder, _Component);
+var Orderlists = function (_Component) {
+  _inherits(Orderlists, _Component);
 
-  function Neworder() {
-    _classCallCheck(this, Neworder);
+  function Orderlists() {
+    _classCallCheck(this, Orderlists);
 
-    return _possibleConstructorReturn(this, (Neworder.__proto__ || Object.getPrototypeOf(Neworder)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Orderlists.__proto__ || Object.getPrototypeOf(Orderlists)).apply(this, arguments));
   }
 
-  _createClass(Neworder, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-    //console.log('___+++++++++++++___');
-    //  console.log(this.props.orders.initial);
-    //console.log(typeof this.props.orders.initial);
-    //this.props.orders.initial.then((data)=>{data.order.map((d)=>{console.log('___@___')})});
-
-
-    //    {this.props.orders.map((d)=><tr><td>#</td><td></td><td>Row 2</td><td>Row 3</td><td>Row 3</td><td>Row 3</td></tr>)}<tr><td>#</td><td></td><td>Row 2</td><td>Row 3</td><td>Row 3</td><td>Row 3</td></tr>
-
-  }, {
+  _createClass(Orderlists, [{
     key: 'render',
     value: function render() {
-      console.log('________________');
-      //  console.log(this.props.orders.initial);
-      //const mass=this.props.orders.order;   {mass.map((p)=><tr><th>Статус</th><th>Артикул</th><th>Серия</th><th>Количество</th><th>Название</th><th>Создан</th></tr>)}
       return _react2.default.createElement(
         'div',
         { className: 'panel' },
@@ -9824,14 +9961,15 @@ var Neworder = function (_Component) {
               _react2.default.createElement(
                 'tbody',
                 null,
-                this.props.orders.initial.order.map(function (data, i) {
+                this.props.orders.map(function (data, i) {
                   return _react2.default.createElement(
                     'tr',
                     { key: i },
                     _react2.default.createElement(
                       'td',
                       null,
-                      _react2.default.createElement('i', { className: 'fa fa-address-card', 'aria-hidden': 'true' })
+                      ' ',
+                      _react2.default.createElement('i', { className: 'glyph-icon tooltip-button order-icon icon-newspaper-o', title: '.icon-newspaper-o' })
                     ),
                     _react2.default.createElement(
                       'td',
@@ -9873,12 +10011,12 @@ var Neworder = function (_Component) {
     }
   }]);
 
-  return Neworder;
+  return Orderlists;
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(function (state) {
-  return { 'orders': state.salex };
-})(Neworder);
+  return { 'orders': state.salex.initial.order };
+})(Orderlists);
 
 /***/ }),
 /* 50 */
@@ -9897,9 +10035,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(9);
+var _reactRedux = __webpack_require__(8);
 
-var _list_actions = __webpack_require__(8);
+var _list_actions = __webpack_require__(9);
 
 var _reactRouter = __webpack_require__(2);
 
@@ -10048,13 +10186,11 @@ exports.default = function () {
                 case 'Reducers':
                     return _extends({}, state, { item: ListItems[2] });
             }
-        /*  case 'INITIAL_LOADED':
-              return {...state, salex: action.payload };*/
     }
     return state;
 };
 
-var _list_actions = __webpack_require__(8);
+var _list_actions = __webpack_require__(9);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 

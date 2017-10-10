@@ -19,3 +19,7 @@ export function getIssues(){
 export function getData(){
   return [{mass: [1,2,4,10000],text: 'wer'},{peren:{},ver: "ver"},{bool:false}];
 }
+
+export function setCommandLManager(){
+  return [{mass: [1,2,4,10000],text: 'wer'},{peren:{},ver: "ver"},{bool:false}];
+}

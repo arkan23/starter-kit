@@ -216,20 +216,23 @@ import Device from "../models/Device";
    let broken=0;
    await console.log('___date flag___1 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
    const mongoNumbers= Product.find({},{_id:1});
-    date=new Date;
+   date=new Date;
    await console.log('___date flag___2 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
-   const newNumbers=randWDclassic(100000,20,4,13,18,18,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456')
-    date=new Date;
+   const newNumbers=randWDclassic(30000,20,4,13,18,18,'0123456789','abcdefghijklmnopqrstuvwxyz0123456789','abcdefghijklmnopqrstuvwxyz0123456789','datamatrix','123450','123456')
+   date=new Date;
    await console.log('___date flag___3 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
    //broken=await _.intersectionBy(newNumbers,mongoNumbers,'_id') ;
    broken=await _.intersectionBy(mongoNumbers,newNumbers,'_id') ;
    let numbers=await _.unionBy(newNumbers,broken,'_id');
    await console.log('broken numbers: '+broken.length);
    await console.log('true numbers: '+numbers.length);
-    date=new Date;
+   let newCount=await numbers.length/1000;
+   numbers=await _.chunk(numbers, 1000);
+
+   date=new Date;
    await console.log('___date flag___4 '+date.getMinutes()+'-'+date.getSeconds()+'-'+date.getMilliseconds());
-   for(let i=0;i<numbers.length;i++){
-     await Product.create(numbers[i]);
+   for(let i=0;i<newCount;i++){
+     Product.create(numbers[i]);
 
    }
      date=new Date;

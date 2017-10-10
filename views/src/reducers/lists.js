@@ -23,8 +23,6 @@ export default function(state ={}, action) {
                 case 'Reducers':
                     return {...state, item: ListItems[2] };
             }
-      /*  case 'INITIAL_LOADED':
-            return {...state, salex: action.payload };*/
     }
     return state;
 }
